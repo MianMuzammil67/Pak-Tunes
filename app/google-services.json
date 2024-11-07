@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "397171763773",
+    "project_id": "notes-app-with-rdb-fb",
+    "storage_bucket": "notes-app-with-rdb-fb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:397171763773:android:136e9f404da7bc40b99854",
+        "android_client_info": {
+          "package_name": "com.example.paktunes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "397171763773-knuc69hiiuq8ftseurc65400ng0a14oc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCaH2tiJK2mkEiZAGju_O8uYBKgxzPoViA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "397171763773-knuc69hiiuq8ftseurc65400ng0a14oc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

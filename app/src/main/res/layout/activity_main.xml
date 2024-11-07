@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.MainActivity">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/navHostFragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:navGraph="@navigation/nav_graph"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+<!--    <androidx.fragment.app.FragmentContainerView-->
+<!--        android:id="@+id/navHostFragment"-->
+<!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="400dp"-->
+<!--        app:navGraph="@navigation/nav_graph" />-->
+
+    <!--    <FrameLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_alignParentBottom="true"-->
+    <!--        >-->
+
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:orientation="vertical">-->
+
+    <!--            <androidx.cardview.widget.CardView-->
+    <!--                android:id="@+id/cdAddedToLikedSongs"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginHorizontal="10dp"-->
+    <!--                android:backgroundTint="@color/white"-->
+    <!--                android:visibility="gone"-->
+    <!--                app:cardCornerRadius="10dp"-->
+    <!--                app:contentPadding="10dp">-->
+
+    <!--                <TextView-->
+    <!--                    android:id="@+id/tvAddedToLikedSongs"-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:layout_marginVertical="3dp"-->
+    <!--                    android:fontFamily="@font/open_sans_light"-->
+    <!--                    android:maxLines="1"-->
+    <!--                    android:text="Added to Liked Songs."-->
+    <!--                    android:textColor="@color/black"-->
+    <!--                    android:textSize="13sp"-->
+    <!--                    android:textStyle="bold" />-->
+
+    <!--            </androidx.cardview.widget.CardView>-->
+
+    <!--            <androidx.cardview.widget.CardView-->
+    <!--                android:id="@+id/mcdPlayingSong"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginHorizontal="10dp"-->
+    <!--                app:cardCornerRadius="10dp"-->
+    <!--                app:layout_constraintBottom_toBottomOf="parent">-->
+
+    <!--                <RelativeLayout-->
+    <!--                    android:layout_width="match_parent"-->
+    <!--                    android:layout_height="wrap_content"-->
+    <!--                    android:background="@color/brown">-->
+
+    <!--                    <androidx.cardview.widget.CardView-->
+    <!--                        android:id="@+id/mcdCurrentSongCoverImage"-->
+    <!--                        android:layout_width="wrap_content"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:layout_centerVertical="true"-->
+    <!--                        android:layout_margin="8dp"-->
+    <!--                        android:background="@color/brown"-->
+    <!--                        app:cardCornerRadius="10dp">-->
+
+    <!--                        <ImageView-->
+    <!--                            android:id="@+id/ivCurSongImage"-->
+    <!--                            android:layout_width="40dp"-->
+    <!--                            android:layout_height="40dp"-->
+    <!--                            android:layout_centerVertical="true"-->
+    <!--                            android:background="@color/brown"-->
+    <!--                            android:scaleType="fitXY"-->
+    <!--                            android:src="@drawable/ic_bottom_nav_premium_selected_false_icon" />-->
+
+    <!--                    </androidx.cardview.widget.CardView>-->
+
+    <!--                    <LinearLayout-->
+    <!--                        android:layout_width="match_parent"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:layout_centerVertical="true"-->
+    <!--                        android:layout_toStartOf="@id/mllPlayPause"-->
+    <!--                        android:layout_toEndOf="@id/mcdCurrentSongCoverImage"-->
+    <!--                        android:orientation="vertical">-->
+
+    <!--                        <androidx.viewpager2.widget.ViewPager2-->
+    <!--                            android:id="@+id/vpSong"-->
+    <!--                            android:layout_width="match_parent"-->
+    <!--                            android:layout_height="50dp"-->
+    <!--                            android:layout_marginVertical="3dp"-->
+    <!--                            android:background="@null"-->
+    <!--                            android:backgroundTint="@null"-->
+    <!--                            android:fontFamily="@font/open_sans_light"-->
+    <!--                            android:maxLines="1"-->
+    <!--                            android:text="Raataan Lambiyan"-->
+    <!--                            android:textColor="@color/white"-->
+    <!--                            android:textSize="13sp"-->
+    <!--                            android:textStyle="bold" />-->
+
+    <!--                    </LinearLayout>-->
+
+    <!--                    <LinearLayout-->
+    <!--                        android:id="@+id/mllPlayPause"-->
+    <!--                        android:layout_width="wrap_content"-->
+    <!--                        android:layout_height="wrap_content"-->
+    <!--                        android:layout_alignParentEnd="true"-->
+    <!--                        android:layout_centerVertical="true"-->
+    <!--                        android:layout_margin="10dp"-->
+    <!--                        android:orientation="horizontal">-->
+
+    <!--                        <FrameLayout-->
+    <!--                            android:layout_width="wrap_content"-->
+    <!--                            android:layout_height="wrap_content">-->
+
+    <!--                            <ImageView-->
+    <!--                                android:id="@+id/mivFavoriteWhite"-->
+    <!--                                android:layout_width="20dp"-->
+    <!--                                android:layout_height="20dp"-->
+    <!--                                android:src="@drawable/icon_favorite_white"-->
+    <!--                                android:visibility="visible" />-->
+
+    <!--                            <ImageView-->
+    <!--                                android:id="@+id/mivFavoriteGreen"-->
+    <!--                                android:layout_width="20dp"-->
+    <!--                                android:layout_height="20dp"-->
+    <!--                                android:src="@drawable/icon_favorite_green"-->
+    <!--                                android:visibility="gone" />-->
+
+    <!--                        </FrameLayout>-->
+
+    <!--                        <FrameLayout-->
+    <!--                            android:layout_width="wrap_content"-->
+    <!--                            android:layout_height="wrap_content"-->
+    <!--                            android:layout_marginStart="15dp"-->
+    <!--                            android:layout_marginEnd="5dp">-->
+
+    <!--                            <ImageView-->
+    <!--                                android:id="@+id/mivPlay"-->
+    <!--                                android:layout_width="20dp"-->
+    <!--                                android:layout_height="20dp"-->
+    <!--                                android:contentDescription="play"-->
+    <!--                                android:src="@drawable/icon_pause"-->
+    <!--                                android:visibility="gone" />-->
+
+    <!--                            <ImageView-->
+    <!--                                android:id="@+id/ivPlayPause"-->
+    <!--                                android:layout_width="20dp"-->
+    <!--                                android:layout_height="20dp"-->
+    <!--                                android:contentDescription="pause"-->
+    <!--                                android:src="@drawable/ic_play"-->
+    <!--                                android:visibility="visible" />-->
+
+    <!--                        </FrameLayout>-->
+
+    <!--                    </LinearLayout>-->
+
+    <!--                </RelativeLayout>-->
+
+    <!--            </androidx.cardview.widget.CardView>-->
+
+
+    <!--        </LinearLayout>-->
+
+    <!--    </FrameLayout>-->
+
+<!--</RelativeLayout>-->
