@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.paktunes.data.entities.Artist
 import com.example.paktunes.data.entities.Category
 import com.example.paktunes.data.entities.Song
 import com.example.paktunes.repository.MainRepository

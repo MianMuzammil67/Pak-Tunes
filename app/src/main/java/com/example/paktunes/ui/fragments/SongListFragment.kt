@@ -1,16 +1,10 @@
 package com.example.paktunes.ui.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.paktunes.R
-import com.example.paktunes.adapter.RvAdapter
 import com.example.paktunes.databinding.FragmentSongListBinding
 import com.example.paktunes.ui.viewModel.MusicViewModel
 import dagger.hilt.android.AndroidEntryPoint

@@ -1,9 +1,6 @@
 package com.example.paktunes.repository
 //
-import com.example.paktunes.data.entities.Artist
-import com.example.paktunes.data.entities.Song
 import com.example.paktunes.data.remote.MusicDatabase
-import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
 class ArtistRepository@Inject constructor(private val musicDatabase: MusicDatabase)  {

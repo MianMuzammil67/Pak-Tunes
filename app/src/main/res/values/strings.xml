@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Pak Tunes</string>
+    <string name="artist_photo">Artist Photo</string>
+    <string name="artist_name">Artist Name</string>
+    <string name="listen_the_latest_musics">Listen The \nLatest Musics</string>
+    <string name="your_top_genres">Your top genres</string>
+    <string name="popular_podcast_categories">Popular podcast categories</string>
+    <string name="popular_artists">Popular Artists</string>
+    <string name="recommend_for_you">Recommend for you</string>
+    <string name="categorey_name">Categorey Name</string>
+    <string name="category_image">Category Image</string>
 </resources>
