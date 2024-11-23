@@ -1,4 +1,4 @@
-package com.example.paktunes.exoplayer
+package com.example.paktunes.ui.fragments
 
 import android.content.ComponentName
 import android.net.Uri
@@ -129,7 +129,7 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
 
         val mediaItem = MediaItem.Builder()
             .setMediaId(song.songUrl)
-//            .setMediaId("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3")
+            //            .setMediaId("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3")
             .setMediaMetadata(
                 MediaMetadata.Builder()
                     .setFolderType(MediaMetadata.FOLDER_TYPE_ALBUMS)

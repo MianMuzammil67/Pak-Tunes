@@ -11,3 +11,13 @@ data class Song(
     val songUrl: String = "",
     val imageUrl: String = ""
 ): Parcelable
+
+//data class Song(
+//    val id: String,  // Using Firestore-generated document ID
+//    val title: String,
+//    val duration: String,
+//    val album: String,
+//    val artistId: String,  // Firestore document ID for the artist
+//    val categoryName: String,  // Field to store category name (e.g., "Pop", "Rock", etc.)
+//    val image: String  // Image URL for the song/album
+//)

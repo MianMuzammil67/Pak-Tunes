@@ -1,4 +1,4 @@
-package com.example.paktunes.exoplayer
+package com.example.paktunes.ui.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -26,19 +26,21 @@ class SongListFragment : Fragment(R.layout.fragment_song_list) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSongListBinding.bind(view)
 
-        val recyclerView: RecyclerView = binding.recyclerView
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        //    purana but useful     ///////////////////////////////////////////////////////////////////////
 
-        viewModel.songsLiveData.observe(viewLifecycleOwner) { songList ->
-            Log.e(TAG, songList.toString())
+//        val recyclerView: RecyclerView = binding.recyclerView
+//        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-            recyclerView.adapter = RvAdapter(songList) { selectedIndex ->
-
-                Toast.makeText(requireContext(), selectedIndex.toString(), Toast.LENGTH_LONG).show()
-
-                viewModel.setCurrentSongIndex(selectedIndex)
-                findNavController().navigate(R.id.action_songListFragment_to_songDetailFragment)
-            }
-        }
+//        viewModel.songsLiveData.observe(viewLifecycleOwner) { songList ->
+//            Log.e(TAG, songList.toString())
+//
+//            recyclerView.adapter = RvAdapter(songList) { selectedIndex ->
+//
+//                Toast.makeText(requireContext(), selectedIndex.toString(), Toast.LENGTH_LONG).show()
+//
+//                viewModel.setCurrentSongIndex(selectedIndex)
+//                findNavController().navigate(R.id.action_songListFragment_to_songDetailFragment)
+//            }
+//        }
     }
 }

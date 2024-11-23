@@ -3,18 +3,29 @@ package com.example.paktunes.ui.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
+import com.example.paktunes.data.entities.Artist
+import com.example.paktunes.data.entities.Category
 import com.example.paktunes.data.entities.Song
-import com.example.paktunes.data.remote.MusicDatabase
+import com.example.paktunes.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-
 @HiltViewModel
-class MusicViewModel @Inject constructor(private val musicDatabase: MusicDatabase) : ViewModel() {
+class MusicViewModel @Inject constructor(private val repository: MainRepository) : ViewModel() {
+
+    private val _musicCategories = MutableLiveData<List<Category>>()
+    val musicCategories: LiveData<List<Category>> = _musicCategories
+
+    private val _podcastCategories = MutableLiveData<List<Category>>()
+    val podcastCategories: LiveData<List<Category>> = _podcastCategories
+
+//    private val _popularArtists = MutableLiveData<List<Artist>>()
+//    val popularArtists: LiveData<List<Artist>> = _popularArtists
+
+
 
     private val _songs = MutableLiveData<List<Song>>()
     val songsLiveData: LiveData<List<Song>> = _songs
@@ -22,26 +33,48 @@ class MusicViewModel @Inject constructor(private val musicDatabase: MusicDatabas
     private val _currentSongIndex = MutableLiveData<Int>()
     val currentSongIndex: LiveData<Int> = _currentSongIndex
 
-//    val currentSong: LiveData<Song?> = Transformations.map(_currentSongIndex) { index ->
+    init {
+        getMusicCategories()
+        getPodcastCategories()
+//        fetchALLSongs()
+    }
+
+    //    purana but useful     ///////////////////////////////////////////////////////////////////////
+//    val currentSong: LiveData<Song?> = _currentSongIndex.map { index ->
 //        _songs.value?.getOrNull(index ?: -1)
 //    }
-    val currentSong: LiveData<Song?> = _currentSongIndex.map { index ->
-        _songs.value?.getOrNull(index ?: -1)
-    }
-
-    init {
-        fetchSongs()
-    }
-
-    private fun fetchSongs() {
+    //    purana but useful
+//    private fun fetchALLSongs() {
+//        viewModelScope.launch {
+//            val songList = repository.getAllSongs()
+//            _songs.postValue(songList)
+//            if (songList.isNotEmpty()) {
+//                _currentSongIndex.postValue(1)
+//            }
+//        }
+//    }
+    fun getALLSongs() {
         viewModelScope.launch {
-            val songList = musicDatabase.getAllSongs()
-            _songs.postValue(songList)
-            if (songList.isNotEmpty()) {
-                _currentSongIndex.postValue(1)
-            }
+            val songList = repository.getAllSongs()
+//            _songs.postValue(songList)
+
         }
     }
+
+    private fun getMusicCategories() = viewModelScope.launch {
+        val musicCategoryList = repository.getAllMusicCategories()
+        _musicCategories.postValue(musicCategoryList)    }
+    private fun getPodcastCategories() = viewModelScope.launch {
+        val podcastCategoryList = repository.getAllPodCastCategories()
+        _podcastCategories.postValue(podcastCategoryList)    }
+    fun getAllArtist() = viewModelScope.launch { repository.getAllArtists() }
+
+
+    fun getSongsByCategory(categoryId: String) {
+        TODO()
+        //    current category k songs k liy view model main getallsongs main query chlani hy
+    }
+
 
     fun setCurrentSongIndex(index: Int) {
         if (index in _songs.value!!.indices) {

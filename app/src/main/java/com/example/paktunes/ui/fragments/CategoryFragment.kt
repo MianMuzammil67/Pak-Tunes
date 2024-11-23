@@ -1,4 +1,4 @@
-package com.example.paktunes.exoplayer
+package com.example.paktunes.ui.fragments
 
 import android.os.Bundle
 import android.view.View

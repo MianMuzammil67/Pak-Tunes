@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_background"
-    tools:context=".ui.MainActivity">
+    tools:context=".ui.fragments.HomeFragment">
 
     <!--    <ProgressBar-->
     <!--        android:id="@+id/allSongsProgressBar"-->
@@ -50,7 +50,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvAllSongs"
+            android:id="@+id/rvMusicCategories"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -60,7 +60,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvCategories"
             app:layout_constraintTop_toBottomOf="@+id/tvCategories"
-            tools:listitem="@layout/item_list" />
+            tools:listitem="@layout/category_item" />
 
         <TextView
             android:id="@+id/tvPodcast"
@@ -71,20 +71,20 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/rvAllSongs"
-            app:layout_constraintTop_toBottomOf="@+id/rvAllSongs" />
+            app:layout_constraintStart_toStartOf="@+id/rvMusicCategories"
+            app:layout_constraintTop_toBottomOf="@+id/rvMusicCategories" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvAllPodcast"
+            android:id="@+id/rvPodcastCategories"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="@+id/rvAllSongs"
+            app:layout_constraintEnd_toEndOf="@+id/rvMusicCategories"
             app:layout_constraintStart_toStartOf="@+id/tvPodcast"
             app:layout_constraintTop_toBottomOf="@+id/tvPodcast"
-            tools:listitem="@layout/item_list" />
+            tools:listitem="@layout/category_item" />
 
         <TextView
             android:id="@+id/tvPopularArtist"
@@ -95,8 +95,8 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@+id/rvAllPodcast"
-            app:layout_constraintTop_toBottomOf="@+id/rvAllPodcast" />
+            app:layout_constraintStart_toStartOf="@+id/rvPodcastCategories"
+            app:layout_constraintTop_toBottomOf="@+id/rvPodcastCategories" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvPopularArtist"
@@ -105,10 +105,10 @@
             android:layout_marginTop="8dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="@+id/rvAllPodcast"
-            app:layout_constraintStart_toStartOf="@+id/rvAllPodcast"
+            app:layout_constraintEnd_toEndOf="@+id/rvPodcastCategories"
+            app:layout_constraintStart_toStartOf="@+id/rvPodcastCategories"
             app:layout_constraintTop_toBottomOf="@+id/tvPopularArtist"
-            tools:listitem="@layout/screen" />
+            tools:listitem="@layout/artist_item" />
 
 
         <TextView
@@ -120,7 +120,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@+id/rvAllPodcast"
+            app:layout_constraintStart_toStartOf="@+id/rvPopularArtist"
             app:layout_constraintTop_toBottomOf="@+id/rvPopularArtist" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -128,8 +128,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/rvPopularArtist"
-            app:layout_constraintStart_toStartOf="@+id/rvPopularArtist"
+            app:layout_constraintEnd_toEndOf="@+id/rvPodcastCategories"
+            app:layout_constraintStart_toStartOf="@+id/rvPodcastCategories"
             app:layout_constraintTop_toBottomOf="@+id/tvRecommend"
             tools:listitem="@layout/recommend_items" />
 
