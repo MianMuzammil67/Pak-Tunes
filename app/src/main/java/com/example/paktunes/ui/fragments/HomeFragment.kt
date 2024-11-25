@@ -59,10 +59,10 @@ class HomeFragment(): Fragment(R.layout.fragment_home) {
             findNavController().navigate(action)
         }
 
-        popularMusicAdapter.onCardClickListener { position->
-            val action = HomeFragmentDirections.actionHomeFragmentToSongListFragment(position)
-            findNavController().navigate(action)
-        }
+//        popularMusicAdapter.onCardClickListener { position->
+//            val action = HomeFragmentDirections.actionHomeFragmentToSongListFragment(position)
+//            findNavController().navigate(action)
+//        }
 
     }
     private fun setupArtistRecyclerView(){
