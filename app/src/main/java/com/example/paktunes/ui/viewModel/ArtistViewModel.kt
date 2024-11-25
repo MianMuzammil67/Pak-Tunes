@@ -24,7 +24,7 @@ class ArtistViewModel @Inject constructor(private val repository: ArtistReposito
     val filteredSongsLiveData: LiveData<List<Song>> = _filteredSongs
 
     init {
-        getAllSongs()
+//        getAllSongs()
         getAllArtist()
     }
 

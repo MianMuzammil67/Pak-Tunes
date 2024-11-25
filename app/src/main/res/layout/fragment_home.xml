@@ -124,14 +124,14 @@
             app:layout_constraintTop_toBottomOf="@+id/rvPopularArtist" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvRecommend"
+            android:id="@+id/rvPopularSongs"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="@+id/rvPodcastCategories"
             app:layout_constraintStart_toStartOf="@+id/rvPodcastCategories"
             app:layout_constraintTop_toBottomOf="@+id/tvRecommend"
-            tools:listitem="@layout/recommend_items" />
+            tools:listitem="@layout/popular_items" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

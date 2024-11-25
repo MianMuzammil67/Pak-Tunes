@@ -2,13 +2,14 @@ package com.example.paktunes.ui.fragments
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.paktunes.R
 import com.example.paktunes.adapter.ArtistAdapter
 import com.example.paktunes.adapter.CategoryAdapter
+import com.example.paktunes.adapter.PopularMusicAdapter
 import com.example.paktunes.databinding.FragmentHomeBinding
 import com.example.paktunes.ui.viewModel.ArtistViewModel
 import com.example.paktunes.ui.viewModel.MusicViewModel
@@ -21,6 +22,7 @@ class HomeFragment(): Fragment(R.layout.fragment_home) {
     private lateinit var musicCategoryAdapter : CategoryAdapter
     private lateinit var podcastCategoryAdapter : CategoryAdapter
     private lateinit var artistAdapter : ArtistAdapter
+    private lateinit var popularMusicAdapter : PopularMusicAdapter
     private val musicViewModel: MusicViewModel by viewModels()
     private val artistViewModel: ArtistViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,23 +32,36 @@ class HomeFragment(): Fragment(R.layout.fragment_home) {
         setupMusicCategoryRecyclerView()
         setupPodcastCategoryRecyclerView()
         setupArtistRecyclerView()
-
-
-        // Observe Music Categories LiveData
+        setupPopularSongsRecyclerView()
+        //fetching data from viewModel
         musicViewModel.musicCategories.observe(viewLifecycleOwner) { categories ->
-            // Update Music Category RecyclerView
             musicCategoryAdapter.submitList(categories)
         }
-
-        // Observe Podcast Categories LiveData
         musicViewModel.podcastCategories.observe(viewLifecycleOwner) { categories ->
-            Toast.makeText(requireContext(), categories[0].id.toString(), Toast.LENGTH_SHORT).show()
-
-            // Update Podcast Category RecyclerView
             podcastCategoryAdapter.submitList(categories)
         }
         artistViewModel.artistLiveData.observe(viewLifecycleOwner){ artists ->
             artistAdapter.submitList(artists)
+        }
+        musicViewModel.popularSongs.observe(viewLifecycleOwner) { popularSongs ->
+            popularMusicAdapter.submitList(popularSongs)
+        }
+
+//        setting click listener
+
+        musicCategoryAdapter.onCardClickListener { position->
+            val action = HomeFragmentDirections.actionHomeFragmentToSongListFragment(position)
+            findNavController().navigate(action)
+        }
+
+        podcastCategoryAdapter.onCardClickListener { position->
+            val action = HomeFragmentDirections.actionHomeFragmentToSongListFragment(position)
+            findNavController().navigate(action)
+        }
+
+        popularMusicAdapter.onCardClickListener { position->
+            val action = HomeFragmentDirections.actionHomeFragmentToSongListFragment(position)
+            findNavController().navigate(action)
         }
 
     }
@@ -54,7 +69,16 @@ class HomeFragment(): Fragment(R.layout.fragment_home) {
         artistAdapter = ArtistAdapter()
         binding.rvPopularArtist.apply {
             adapter = artistAdapter
-            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false) // Horizontal layout for Podcast
+            layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        }
+    }
+
+
+    private fun setupPopularSongsRecyclerView(){
+        popularMusicAdapter = PopularMusicAdapter()
+        binding.rvPopularSongs.apply {
+            adapter = popularMusicAdapter
+            layoutManager = LinearLayoutManager(context)
         }
     }
 

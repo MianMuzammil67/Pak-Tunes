@@ -12,25 +12,31 @@ import com.example.paktunes.databinding.ArtistItemBinding
 
 class ArtistAdapter : RecyclerView.Adapter<ArtistAdapter.ViewHolder>() {
 
+    private var _itemClicked: ((Int) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             ArtistItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val artist = diffUtil.currentList[position]
         holder.binding.apply {
             tvArtistName.text = artist.name
         }
-//        holder.itemView.apply {
-        Glide.with(holder.itemView.context).load(artist.image)
-            .placeholder(R.drawable.placeholder)
+        holder.itemView.apply {
+            setOnClickListener{
+                _itemClicked?.let {
+                    it(position)
+                }
+                _itemClicked
+            }
+
+        Glide.with(context).load(artist.image)
+            .placeholder(R.drawable.artist_placeholder)
             .into(holder.binding.ivArtistPhoto)
-
-//        }
+        }
     }
-
     override fun getItemCount(): Int {
         return diffUtil.currentList.size
     }
@@ -39,7 +45,6 @@ class ArtistAdapter : RecyclerView.Adapter<ArtistAdapter.ViewHolder>() {
         override fun areItemsTheSame(oldItem: Artist, newItem: Artist): Boolean {
             return oldItem.id == newItem.id
         }
-
         override fun areContentsTheSame(oldItem: Artist, newItem: Artist): Boolean {
             return oldItem == newItem
         }
@@ -50,8 +55,13 @@ class ArtistAdapter : RecyclerView.Adapter<ArtistAdapter.ViewHolder>() {
         diffUtil.submitList(list)
     }
 
+    fun onCardClickListener (listener: (Int)-> Unit){
+
+    }
+
     class ViewHolder(var binding: ArtistItemBinding) :
         RecyclerView.ViewHolder(binding.root)
+
 
 
 }

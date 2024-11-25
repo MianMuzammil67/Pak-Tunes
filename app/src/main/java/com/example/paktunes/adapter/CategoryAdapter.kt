@@ -1,5 +1,6 @@
 package com.example.paktunes.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -11,6 +12,7 @@ import com.example.paktunes.data.entities.Category
 import com.example.paktunes.databinding.CategoryItemBinding
 
 class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+     private var _itemClicked: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -21,13 +23,20 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val category = diffUtil.currentList[position]
         holder.binding.apply {
+            cvParent.setBackgroundColor(Color.RED)
             tvCatName.text = category.name
         }
-//        holder.itemView.apply {
-            Glide.with(holder.itemView.context).load(category.image).placeholder(R.drawable.placeholder)
+        holder.itemView.apply {
+            setOnClickListener{
+//                _itemClicked?.let {
+//                    it(position)
+//                }
+                _itemClicked
+            }
+            Glide.with(context).load(category.image).placeholder(R.drawable.placeholder)
                 .into(holder.binding.CategoryImage)
 
-//        }
+        }
     }
 
 
@@ -48,6 +57,10 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     fun submitList(list: List<Category>) {
         diffUtil.submitList(list)
+    }
+
+    fun onCardClickListener(listener:(Int)-> Unit){
+        _itemClicked = listener
     }
 
     class ViewHolder(var binding: CategoryItemBinding) :

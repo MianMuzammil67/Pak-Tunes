@@ -21,8 +21,8 @@ class MusicViewModel @Inject constructor(private val repository: MainRepository)
     private val _podcastCategories = MutableLiveData<List<Category>>()
     val podcastCategories: LiveData<List<Category>> = _podcastCategories
 
-//    private val _popularArtists = MutableLiveData<List<Artist>>()
-//    val popularArtists: LiveData<List<Artist>> = _popularArtists
+    private val _popularSongs = MutableLiveData<List<Song>>()
+    val popularSongs: LiveData<List<Song>> = _popularSongs
 
 
 
@@ -35,7 +35,7 @@ class MusicViewModel @Inject constructor(private val repository: MainRepository)
     init {
         getMusicCategories()
         getPodcastCategories()
-//        fetchALLSongs()
+        getPopularSongs()
     }
 
     //    purana but useful     ///////////////////////////////////////////////////////////////////////
@@ -56,7 +56,6 @@ class MusicViewModel @Inject constructor(private val repository: MainRepository)
         viewModelScope.launch {
             val songList = repository.getAllSongs()
 //            _songs.postValue(songList)
-
         }
     }
 
@@ -66,12 +65,16 @@ class MusicViewModel @Inject constructor(private val repository: MainRepository)
     private fun getPodcastCategories() = viewModelScope.launch {
         val podcastCategoryList = repository.getAllPodCastCategories()
         _podcastCategories.postValue(podcastCategoryList)    }
-    fun getAllArtist() = viewModelScope.launch { repository.getAllArtists() }
-
-
-    fun getSongsByCategory(categoryId: String) {
-        //    current category k songs k liy view model main getallsongs main query chlani hy
+    fun getPopularSongs() = viewModelScope.launch {
+       val songList = repository.getAllSongs()
+        _popularSongs.postValue(songList)
     }
+
+
+
+//    fun getSongsByCategory(categoryId: String) {
+//        //    current category k songs k liy view model main getallsongs main query chlani hy
+//    }
 
 
     fun setCurrentSongIndex(index: Int) {

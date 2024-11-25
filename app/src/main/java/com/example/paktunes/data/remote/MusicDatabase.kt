@@ -22,7 +22,7 @@ class MusicDatabase {
 //        }
 //    }
 
-    suspend fun getAllSongs(): List<Song>{
+     fun getAllSongs(): List<Song>{
         return getMockSongs()
     }
 
@@ -145,10 +145,11 @@ class MusicDatabase {
             Artist(id = 4, name = "Abida Parveen", genre = "Sufi", image = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Abida_Parveen.jpg/220px-Abida_Parveen.jpg"),
             Artist(id = 5, name = "Ali Zafar", genre = "Pop", image = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Ali_Zafar_at_%27Sa_Re_Ga_Ma_Pa%27_North_America%27_event_%28cropped%29.jpg/220px-Ali_Zafar_at_%27Sa_Re_Ga_Ma_Pa%27_North_America%27_event_%28cropped%29.jpg"),
             Artist(id = 6, name = "Nusrat Fateh Ali Khan", genre = "Qawwali", image = "https://upload.wikimedia.org/wikipedia/en/thumb/5/59/Nusrat_Fateh_Ali_Khan_03_1987_Royal_Albert_Hall.jpg/220px-Nusrat_Fateh_Ali_Khan_03_1987_Royal_Albert_Hall.jpg"),
-            Artist(id = 7, name = "Junoon", genre = "Rock", image = "https://example.com/images/junoon.jpg"),
-            Artist(id = 8, name = "Bilal Saeed", genre = "Pop", image = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Bilal_Saeed.jpg/220px-Bilal_Saeed.jpg"),
-            Artist(id = 9, name = "Talha Anjum", genre = "Rap", image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzOdbnlzfLbF_kEAXQIe-3QhTDHB3FbCMYyg&s"),
-            Artist(id = 10, name = "Farhan Saeed", genre = "Pop", image = "https://upload.wikimedia.org/wikipedia/en/a/ab/Farhan_Saeed.jpeg")
+            Artist(id = 7, name = "Junoon", genre = "Rock", image = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Junoon_Live_at_Channel_V_Awards.jpg/250px-Junoon_Live_at_Channel_V_Awards.jpg"),
+            Artist(id = 8, name = "Bilal Saeed", genre = "hip hop", image = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Bilal_Saeed.jpg/220px-Bilal_Saeed.jpg"),
+            Artist(id = 9, name = "Talha Anjum", genre = "hip hop", image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzOdbnlzfLbF_kEAXQIe-3QhTDHB3FbCMYyg&s"),
+            Artist(id = 10, name = "Farhan Saeed", genre = "Pop", image = "https://upload.wikimedia.org/wikipedia/en/a/ab/Farhan_Saeed.jpeg"),
+            Artist(id = 11, name = "Mehdi Hassan", genre = "Classical", image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5eTk6BbyYj8U5EPGOrB7diz4XkSv6ILqnp1SAiA50OqePvxGX")
                       )
     }
 

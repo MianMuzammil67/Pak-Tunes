@@ -2,8 +2,10 @@ package com.example.paktunes.ui.fragments
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.example.paktunes.R
 import com.example.paktunes.databinding.FragmentSongListBinding
 import com.example.paktunes.ui.viewModel.MusicViewModel
@@ -14,11 +16,23 @@ class SongListFragment : Fragment(R.layout.fragment_song_list) {
 
     private val viewModel: MusicViewModel by viewModels()
     private lateinit var binding: FragmentSongListBinding
+    private val arg : SongListFragmentArgs by navArgs()
     private val TAG = "SongListFragment"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSongListBinding.bind(view)
+
+    arg.let {
+        Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_LONG).show()
+    }
+
+
+
+
+
+
+
 
         //    purana but useful     ///////////////////////////////////////////////////////////////////////
 
