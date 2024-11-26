@@ -137,7 +137,7 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
 //                    .setArtworkUri(Uri.parse("https://i.pinimg.com/736x/4b/02/1f/4b021f002b90ab163ef41aaaaa17c7a4.jpg"))
                     .setAlbumTitle(song.title)
                     .setDisplayTitle(song.title)
-                    .setSubtitle(song.subtitle)
+                    .setSubtitle(song.artistName)
                     .build()
             ).build()
 

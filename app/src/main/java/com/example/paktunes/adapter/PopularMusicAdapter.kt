@@ -22,6 +22,7 @@ class PopularMusicAdapter : RecyclerView.Adapter<PopularMusicAdapter.ViewHolder>
         val song = diffUtil.currentList[position]
         holder.binding.apply {
             tvSongTitle.text = song.title
+            tvSongArtist.text = song.artistName
 
         }
         Glide.with(holder.itemView.context).load(song.imageUrl)

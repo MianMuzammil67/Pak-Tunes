@@ -38,7 +38,7 @@ class RvAdapter(
 
         fun bind(song: Song) {
             songTitle.text = song.title
-            songArtist.text = song.subtitle
+            songArtist.text = song.artistName
             // Load thumbnail with Glide
             Glide.with(itemView.context)
                 .load(song.imageUrl)

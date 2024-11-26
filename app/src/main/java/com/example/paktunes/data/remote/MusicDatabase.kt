@@ -4,11 +4,10 @@ import com.example.paktunes.R
 import com.example.paktunes.data.entities.Artist
 import com.example.paktunes.data.entities.Category
 import com.example.paktunes.data.entities.Song
-import com.google.firebase.firestore.FirebaseFirestore
 
 class MusicDatabase {
 
-    private val firestore = FirebaseFirestore.getInstance()
+//    private val firestore = FirebaseFirestore.getInstance()
 
     //    private val songCollection = firestore.collection(SONG_COLLECTION)
 //    private val songCollection = firestore.collection("songs")
@@ -31,21 +30,21 @@ class MusicDatabase {
             Song(
                 mediaId = "001",
                 title = "Meri Kahani",
-                subtitle = "Atif Aslam",
+                artistName = "Atif Aslam",
                 songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/02%20-%20Kinara%20(Apniisp.Com).mp3",
                 imageUrl = "https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Meri_Kahani_cover.jpg/220px-Meri_Kahani_cover.jpg"
             ),
             Song(
                 mediaId = "002",
                 title = "Rabba Sacheya",
-                subtitle = "Atif Aslam",
+                artistName = "Atif Aslam",
                 songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/03%20-%20Rabba%20Sacheya%20(Apniisp.Com).mp3",
                 imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwg7_r-7IWfdgsYn1hJmdsPOfZzu0YpB6wqQ&s"
             ),
             Song(
                 mediaId = "003",
                 title = "Mann Hota Hai",
-                subtitle = "Atif Aslam",
+                artistName = "Atif Aslam",
                 songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/04%20-%20Mann%20Hota%20Hai%20(Apniisp.Com).mp3",
                 imageUrl = "https://www.bbc.co.uk/staticarchive/50cf0c0b92f670f72bcb5a7d99ba93e94356786e.jpg"
             ),
@@ -59,7 +58,7 @@ class MusicDatabase {
             Song(
                 mediaId = "005",
                 title = "Humrahi",
-                subtitle = "Atif Aslam",
+                artistName = "Atif Aslam",
                 songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/07%20-%20Humrahi%20(Apniisp.Com).mp3",
                 imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG2GgO8kPoOILvDXiUJAvSXy-ncOP8xIhFew&s"
             ),
@@ -73,7 +72,7 @@ class MusicDatabase {
             Song(
                 mediaId = "007",
                 title = "Kaun Tha (Kapkapi)",
-                subtitle = "Atif Aslam",
+                artistName = "Atif Aslam",
                 songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/09%20-%20Kaun%20Tha%20-%20Kapkapi%20(Apniisp.Com).mp3",
                 imageUrl = "https://www.bbc.co.uk/staticarchive/50cf0c0b92f670f72bcb5a7d99ba93e94356786e.jpg"
             ),
@@ -87,7 +86,7 @@ class MusicDatabase {
             Song(
                 mediaId = "009",
                 title = "Yaaro",
-                subtitle = "Atif Aslam",
+                artistName = "Atif Aslam",
                 songUrl = "http://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/11%20-%20Yaaro%20(Apniisp.Com).mp3",
                 imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2kzebrh6GLMr3VM1eukp3dpSaGg_LMjlig&s"
             ),
@@ -101,23 +100,30 @@ class MusicDatabase {
             Song(
                 mediaId = "11",
                 title = "Kahani Suno (Mujhe Pyar Hua Tha)",
-                subtitle = "Kaifi Khalil",
+                artistName = "Kaifi Khalil",
                 songUrl = "http://songs.apniisp.com/Mix%20-%20Songs/323%20-%20Kahani%20Suno%20-%20Kaifi%20Khalil%20(ApniISP.Com).mp3",
                 imageUrl = "https://i.ytimg.com/vi/_XBVWlI8TsQ/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAAX0i887kNXH0IAlODeNs3fV_CvQ"
             ),
             Song(
                 mediaId = "12",
                 title = "Iraaday (Kaisa Sama Hai)",
-                subtitle = "Abdul Hannan",
+                artistName = "Abdul Hannan",
                 songUrl = "http://songs.apniisp.com/Mix%20-%20Songs/322%20-%20Iraaday%20-%20Abdul%20Hannan%20(ApniISP.Com).mp3",
                 imageUrl = "https://i.ytimg.com/vi/_rOZUz4AIw8/sddefault.jpg"
             ),
             Song(
                 mediaId = "13",
                 title = "Habibi",
-                subtitle = "Asim Azhar",
+                artistName = "Asim Azhar",
                 songUrl = "http://songs.apniisp.com/Mix%20-%20Songs/321%20-%20Habibi%20-%20Asim%20Azhar%20(ApniISP.Com).mp3",
                 imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpPu9bzcCfb4lKuTDPh6lv7QWaqAF5Dffu_A&s"
+            ),
+            Song(
+                mediaId = "13",
+                title = "Na Cher Malangaan Nu",
+                artistName = "Farhan Saeed",
+                songUrl = "http://songs.apniisp.com/Mix%20-%20Songs/319%20-%20Na%20Cher%20Malangaan%20Nu%20-%20Farhan%20Saeed%20&%20Aima%20Baig%20(ApniISP.Com).mp3",
+                imageUrl = "https://i1.sndcdn.com/artworks-2pRHe8jhmlzkqOu4-UAc1Cw-t500x500.jpg"
             )
         )
 
