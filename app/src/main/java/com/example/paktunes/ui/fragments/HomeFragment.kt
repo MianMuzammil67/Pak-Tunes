@@ -83,7 +83,7 @@ class HomeFragment(): Fragment(R.layout.fragment_home) {
     }
 
     private fun setupMusicCategoryRecyclerView() {
-        musicCategoryAdapter = CategoryAdapter()
+        musicCategoryAdapter = CategoryAdapter(0)
         // Same adapter for both categories
         binding.rvMusicCategories.apply {
             adapter = musicCategoryAdapter
@@ -92,7 +92,7 @@ class HomeFragment(): Fragment(R.layout.fragment_home) {
     }
 
     private fun setupPodcastCategoryRecyclerView() {
-        podcastCategoryAdapter = CategoryAdapter()
+        podcastCategoryAdapter = CategoryAdapter(1)
         // Same adapter for both categories
         binding.rvPodcastCategories.apply {
             adapter = podcastCategoryAdapter

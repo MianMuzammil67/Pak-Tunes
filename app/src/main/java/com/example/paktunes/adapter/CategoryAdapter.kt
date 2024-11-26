@@ -11,8 +11,13 @@ import com.example.paktunes.R
 import com.example.paktunes.data.entities.Category
 import com.example.paktunes.databinding.CategoryItemBinding
 
-class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+class CategoryAdapter(
+    private val recyclerViewType: Int // 0 for RV1, 1 for RV2
+) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+
      private var _itemClicked: ((Int) -> Unit)? = null
+    private val colors = listOf("#678026", "#9854B2", "#CF4321", "#3371E4")
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -22,8 +27,13 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val category = diffUtil.currentList[position]
+
+
+
         holder.binding.apply {
-            cvParent.setBackgroundColor(Color.RED)
+            val color = getColorForPosition(position)
+
+            clParent.setBackgroundColor(Color.parseColor(color))
             tvCatName.text = category.name
         }
         holder.itemView.apply {
@@ -62,6 +72,17 @@ class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
     fun onCardClickListener(listener:(Int)-> Unit){
         _itemClicked = listener
     }
+
+    private fun getColorForPosition(position: Int): String {
+        return if (recyclerViewType == 0) {
+            // RecyclerView 1 uses the color list normally
+            colors[position % colors.size]
+        } else {
+            // RecyclerView 2 starts with a different color order
+            colors[(position + 2) % colors.size] // Shift the color list by 2
+        }
+    }
+
 
     class ViewHolder(var binding: CategoryItemBinding) :
         RecyclerView.ViewHolder(binding.root)
