@@ -15,6 +15,9 @@
     <color name="text_colour">#F2F2F2</color>
 
     <color name="purple">#FFBB86FC</color>
-
+    <color name="olive_green">#678026</color>
+    <color name="lavender_purple">#9854B2</color>
+    <color name="coral_red">#CF4321</color>
+    <color name="sky_blue">#3371E4</color>
 
 </resources>
