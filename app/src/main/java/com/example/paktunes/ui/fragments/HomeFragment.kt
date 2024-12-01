@@ -47,22 +47,25 @@ class HomeFragment(): Fragment(R.layout.fragment_home) {
             popularMusicAdapter.submitList(popularSongs)
         }
 
-//        setting click listener
+//        setting click listeners
 
-        musicCategoryAdapter.onCardClickListener { position->
+        musicCategoryAdapter.onCardClickListener {position->
             val action = HomeFragmentDirections.actionHomeFragmentToSongListFragment(position)
             findNavController().navigate(action)
         }
-
         podcastCategoryAdapter.onCardClickListener { position->
             val action = HomeFragmentDirections.actionHomeFragmentToSongListFragment(position)
             findNavController().navigate(action)
         }
 
-//        popularMusicAdapter.onCardClickListener { position->
-//            val action = HomeFragmentDirections.actionHomeFragmentToSongListFragment(position)
-//            findNavController().navigate(action)
-//        }
+        popularMusicAdapter.onCardClickListener { position->
+            val action = HomeFragmentDirections.actionHomeFragmentToSongDetailFragment(position)
+            findNavController().navigate(action)
+        }
+        artistAdapter.onCardClickListener { artistName->
+            val action = HomeFragmentDirections.actionHomeFragmentToArtistDetailFragment(artistName)
+            findNavController().navigate(action)
+        }
 
     }
     private fun setupArtistRecyclerView(){
@@ -72,8 +75,6 @@ class HomeFragment(): Fragment(R.layout.fragment_home) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         }
     }
-
-
     private fun setupPopularSongsRecyclerView(){
         popularMusicAdapter = PopularMusicAdapter()
         binding.rvPopularSongs.apply {
@@ -81,7 +82,6 @@ class HomeFragment(): Fragment(R.layout.fragment_home) {
             layoutManager = LinearLayoutManager(context)
         }
     }
-
     private fun setupMusicCategoryRecyclerView() {
         musicCategoryAdapter = CategoryAdapter(0)
         // Same adapter for both categories
@@ -90,7 +90,6 @@ class HomeFragment(): Fragment(R.layout.fragment_home) {
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false) // Horizontal layout for Music
         }
     }
-
     private fun setupPodcastCategoryRecyclerView() {
         podcastCategoryAdapter = CategoryAdapter(1)
         // Same adapter for both categories

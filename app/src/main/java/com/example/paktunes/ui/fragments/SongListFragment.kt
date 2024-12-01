@@ -24,7 +24,7 @@ class SongListFragment : Fragment(R.layout.fragment_song_list) {
         binding = FragmentSongListBinding.bind(view)
 
     arg.let {
-        Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_LONG).show()
+        Toast.makeText(requireContext(), it.CategoryName, Toast.LENGTH_LONG).show()
     }
 
 

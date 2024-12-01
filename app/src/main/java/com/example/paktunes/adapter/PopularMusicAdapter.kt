@@ -11,13 +11,13 @@ import com.example.paktunes.data.entities.Song
 import com.example.paktunes.databinding.PopularItemsBinding
 
 class PopularMusicAdapter : RecyclerView.Adapter<PopularMusicAdapter.ViewHolder>() {
+    private var _itemClicked : ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             PopularItemsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
     }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val song = diffUtil.currentList[position]
         holder.binding.apply {
@@ -25,13 +25,23 @@ class PopularMusicAdapter : RecyclerView.Adapter<PopularMusicAdapter.ViewHolder>
             tvSongArtist.text = song.artistName
 
         }
-        Glide.with(holder.itemView.context).load(song.imageUrl)
-            .placeholder(R.drawable.placeholder)
-            .into(holder.binding.songThumbnail)
+        holder.itemView.apply {
+            setOnClickListener{
+                _itemClicked?.let {
+                    it(position)
+                }
+//                _itemClicked
+            }
+            Glide.with(context).load(song.imageUrl).placeholder(R.drawable.placeholder)
+                .into(holder.binding.songThumbnail)
+        }
     }
-
     override fun getItemCount(): Int {
         return diffUtil.currentList.size
+    }
+
+    fun onCardClickListener(listener : (Int)-> Unit){
+        _itemClicked = listener
     }
 
     private val diffCallBack = object : DiffUtil.ItemCallback<Song>() {

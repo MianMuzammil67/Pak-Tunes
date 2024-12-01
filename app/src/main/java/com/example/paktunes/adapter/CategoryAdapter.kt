@@ -15,7 +15,7 @@ class CategoryAdapter(
     private val recyclerViewType: Int // 0 for RV1, 1 for RV2
 ) : RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
-     private var _itemClicked: ((Int) -> Unit)? = null
+     private var _itemClicked: ((String) -> Unit)? = null
     private lateinit var colors: List<Int>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,16 +34,15 @@ class CategoryAdapter(
 
         holder.binding.apply {
             val color = getColorForPosition(position)
-
             clParent.setBackgroundColor(color)
             tvCatName.text = category.name
         }
         holder.itemView.apply {
             setOnClickListener{
-//                _itemClicked?.let {
-//                    it(position)
-//                }
-                _itemClicked
+                _itemClicked?.let {
+                    it(category.name)
+                }
+//                _itemClicked
             }
             Glide.with(context).load(category.image).placeholder(R.drawable.placeholder)
                 .into(holder.binding.CategoryImage)
@@ -71,7 +70,7 @@ class CategoryAdapter(
         diffUtil.submitList(list)
     }
 
-    fun onCardClickListener(listener:(Int)-> Unit){
+    fun onCardClickListener(listener:(String)-> Unit){
         _itemClicked = listener
     }
 
