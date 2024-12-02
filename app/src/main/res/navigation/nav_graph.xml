@@ -50,5 +50,8 @@
         <argument
             android:name="artist_name"
             app:argType="string" />
+        <action
+            android:id="@+id/action_artistDetailFragment_to_songDetailFragment"
+            app:destination="@id/songDetailFragment" />
     </fragment>
 </navigation>

@@ -8,13 +8,13 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.example.paktunes.R
 import com.example.paktunes.databinding.FragmentSongListBinding
-import com.example.paktunes.ui.viewModel.MusicViewModel
+import com.example.paktunes.ui.viewModel.CategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SongListFragment : Fragment(R.layout.fragment_song_list) {
 
-    private val viewModel: MusicViewModel by viewModels()
+    private val viewModel: CategoryViewModel by viewModels()
     private lateinit var binding: FragmentSongListBinding
     private val arg : SongListFragmentArgs by navArgs()
     private val TAG = "SongListFragment"
@@ -25,12 +25,8 @@ class SongListFragment : Fragment(R.layout.fragment_song_list) {
 
     arg.let {
         Toast.makeText(requireContext(), it.CategoryName, Toast.LENGTH_LONG).show()
+
     }
-
-
-
-
-
 
 
 

@@ -26,107 +26,193 @@ class MusicDatabase {
     }
 
     private fun getMockSongs(): List<Song> {
+
         return listOf(
             Song(
                 mediaId = "001",
                 title = "Meri Kahani",
                 artistName = "Atif Aslam",
                 songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/02%20-%20Kinara%20(Apniisp.Com).mp3",
-                imageUrl = "https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Meri_Kahani_cover.jpg/220px-Meri_Kahani_cover.jpg"
+                imageUrl = "https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Meri_Kahani_cover.jpg/220px-Meri_Kahani_cover.jpg",
+                category = "Pop"
             ),
             Song(
                 mediaId = "002",
                 title = "Rabba Sacheya",
                 artistName = "Atif Aslam",
                 songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/03%20-%20Rabba%20Sacheya%20(Apniisp.Com).mp3",
-                imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwg7_r-7IWfdgsYn1hJmdsPOfZzu0YpB6wqQ&s"
+                imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwg7_r-7IWfdgsYn1hJmdsPOfZzu0YpB6wqQ&s",
+                category = "Pop"
             ),
             Song(
                 mediaId = "003",
                 title = "Mann Hota Hai",
                 artistName = "Atif Aslam",
                 songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/04%20-%20Mann%20Hota%20Hai%20(Apniisp.Com).mp3",
-                imageUrl = "https://www.bbc.co.uk/staticarchive/50cf0c0b92f670f72bcb5a7d99ba93e94356786e.jpg"
+                imageUrl = "https://www.bbc.co.uk/staticarchive/50cf0c0b92f670f72bcb5a7d99ba93e94356786e.jpg",
+                category = "Romantic"
             ),
-//            Song(
-//                mediaId = "004",
-//                title = "Joug",
-//                subtitle = "Atif Aslam",
-//                songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/05%20-%20Joug%20(Apniisp.Com).mp3",
-//                imageUrl = "https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Meri_Kahani_cover.jpg/220px-Meri_Kahani_cover.jpg"
-//            ),
             Song(
                 mediaId = "005",
                 title = "Humrahi",
                 artistName = "Atif Aslam",
                 songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/07%20-%20Humrahi%20(Apniisp.Com).mp3",
-                imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG2GgO8kPoOILvDXiUJAvSXy-ncOP8xIhFew&s"
+                imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG2GgO8kPoOILvDXiUJAvSXy-ncOP8xIhFew&s",
+                category = "Pop"
             ),
-//            Song(
-//                mediaId = "006",
-//                title = "Mai Nee",
-//                subtitle = "Atif Aslam",
-//                songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/08%20-%20Mai%20Nee%20(Apniisp.Com).mp3",
-//                imageUrl = "https://example.com/song2-image.jpg"
-//            ),
             Song(
                 mediaId = "007",
                 title = "Kaun Tha (Kapkapi)",
                 artistName = "Atif Aslam",
                 songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/09%20-%20Kaun%20Tha%20-%20Kapkapi%20(Apniisp.Com).mp3",
-                imageUrl = "https://www.bbc.co.uk/staticarchive/50cf0c0b92f670f72bcb5a7d99ba93e94356786e.jpg"
+                imageUrl = "https://www.bbc.co.uk/staticarchive/50cf0c0b92f670f72bcb5a7d99ba93e94356786e.jpg",
+                category = "Pop"
             ),
-//            Song(
-//                mediaId = "008",
-//                title = "Chor Gayai",
-//                subtitle = "Atif Aslam",
-//                songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/10%20-%20Chor%20Gayai%20(Apniisp.Com).mp3",
-//                imageUrl = "https://example.com/song2-image.jpg"
-//            ),
             Song(
                 mediaId = "009",
                 title = "Yaaro",
                 artistName = "Atif Aslam",
                 songUrl = "http://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/11%20-%20Yaaro%20(Apniisp.Com).mp3",
-                imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2kzebrh6GLMr3VM1eukp3dpSaGg_LMjlig&s"
+                imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2kzebrh6GLMr3VM1eukp3dpSaGg_LMjlig&s",
+                category = "Romantic"
             ),
-//            Song(
-//                mediaId = "010",
-//                title = "Hangami Halaat",
-//                subtitle = "Atif Aslam",
-//                songUrl = "http://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/12%20-%20Hangami%20Halaat%20(Apniisp.Com).mp3",
-//                imageUrl = "https://example.com/song2-image.jpg"
-//            ),
             Song(
                 mediaId = "11",
                 title = "Kahani Suno (Mujhe Pyar Hua Tha)",
                 artistName = "Kaifi Khalil",
                 songUrl = "http://songs.apniisp.com/Mix%20-%20Songs/323%20-%20Kahani%20Suno%20-%20Kaifi%20Khalil%20(ApniISP.Com).mp3",
-                imageUrl = "https://i.ytimg.com/vi/_XBVWlI8TsQ/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAAX0i887kNXH0IAlODeNs3fV_CvQ"
+                imageUrl = "https://i.ytimg.com/vi/_XBVWlI8TsQ/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAAX0i887kNXH0IAlODeNs3fV_CvQ",
+                category = "Pop"
             ),
             Song(
                 mediaId = "12",
                 title = "Iraaday (Kaisa Sama Hai)",
                 artistName = "Abdul Hannan",
                 songUrl = "http://songs.apniisp.com/Mix%20-%20Songs/322%20-%20Iraaday%20-%20Abdul%20Hannan%20(ApniISP.Com).mp3",
-                imageUrl = "https://i.ytimg.com/vi/_rOZUz4AIw8/sddefault.jpg"
+                imageUrl = "https://i.ytimg.com/vi/_rOZUz4AIw8/sddefault.jpg",
+                category = "Romantic"
             ),
             Song(
                 mediaId = "13",
                 title = "Habibi",
                 artistName = "Asim Azhar",
                 songUrl = "http://songs.apniisp.com/Mix%20-%20Songs/321%20-%20Habibi%20-%20Asim%20Azhar%20(ApniISP.Com).mp3",
-                imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpPu9bzcCfb4lKuTDPh6lv7QWaqAF5Dffu_A&s"
+                imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpPu9bzcCfb4lKuTDPh6lv7QWaqAF5Dffu_A&s",
+                category = "Pop"
             ),
             Song(
                 mediaId = "13",
                 title = "Na Cher Malangaan Nu",
                 artistName = "Farhan Saeed",
                 songUrl = "http://songs.apniisp.com/Mix%20-%20Songs/319%20-%20Na%20Cher%20Malangaan%20Nu%20-%20Farhan%20Saeed%20&%20Aima%20Baig%20(ApniISP.Com).mp3",
-                imageUrl = "https://i1.sndcdn.com/artworks-2pRHe8jhmlzkqOu4-UAc1Cw-t500x500.jpg"
+                imageUrl = "https://i1.sndcdn.com/artworks-2pRHe8jhmlzkqOu4-UAc1Cw-t500x500.jpg",
+                category = "Folk"
             )
         )
 
+
+        /*
+      //        return listOf(
+      //            Song(
+      //                mediaId = "001",
+      //                title = "Meri Kahani",
+      //                artistName = "Atif Aslam",
+      //                songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/02%20-%20Kinara%20(Apniisp.Com).mp3",
+      //                imageUrl = "https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Meri_Kahani_cover.jpg/220px-Meri_Kahani_cover.jpg"
+      //            ),
+      //            Song(
+      //                mediaId = "002",
+      //                title = "Rabba Sacheya",
+      //                artistName = "Atif Aslam",
+      //                songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/03%20-%20Rabba%20Sacheya%20(Apniisp.Com).mp3",
+      //                imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTwg7_r-7IWfdgsYn1hJmdsPOfZzu0YpB6wqQ&s"
+      //            ),
+      //            Song(
+      //                mediaId = "003",
+      //                title = "Mann Hota Hai",
+      //                artistName = "Atif Aslam",
+      //                songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/04%20-%20Mann%20Hota%20Hai%20(Apniisp.Com).mp3",
+      //                imageUrl = "https://www.bbc.co.uk/staticarchive/50cf0c0b92f670f72bcb5a7d99ba93e94356786e.jpg"
+      //            ),
+      ////            Song(
+      ////                mediaId = "004",
+      ////                title = "Joug",
+      ////                subtitle = "Atif Aslam",
+      ////                songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/05%20-%20Joug%20(Apniisp.Com).mp3",
+      ////                imageUrl = "https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Meri_Kahani_cover.jpg/220px-Meri_Kahani_cover.jpg"
+      ////            ),
+      //            Song(
+      //                mediaId = "005",
+      //                title = "Humrahi",
+      //                artistName = "Atif Aslam",
+      //                songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/07%20-%20Humrahi%20(Apniisp.Com).mp3",
+      //                imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTG2GgO8kPoOILvDXiUJAvSXy-ncOP8xIhFew&s"
+      //            ),
+      ////            Song(
+      ////                mediaId = "006",
+      ////                title = "Mai Nee",
+      ////                subtitle = "Atif Aslam",
+      ////                songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/08%20-%20Mai%20Nee%20(Apniisp.Com).mp3",
+      ////                imageUrl = "https://example.com/song2-image.jpg"
+      ////            ),
+      //            Song(
+      //                mediaId = "007",
+      //                title = "Kaun Tha (Kapkapi)",
+      //                artistName = "Atif Aslam",
+      //                songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/09%20-%20Kaun%20Tha%20-%20Kapkapi%20(Apniisp.Com).mp3",
+      //                imageUrl = "https://www.bbc.co.uk/staticarchive/50cf0c0b92f670f72bcb5a7d99ba93e94356786e.jpg"
+      //            ),
+      ////            Song(
+      ////                mediaId = "008",
+      ////                title = "Chor Gayai",
+      ////                subtitle = "Atif Aslam",
+      ////                songUrl = "https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/10%20-%20Chor%20Gayai%20(Apniisp.Com).mp3",
+      ////                imageUrl = "https://example.com/song2-image.jpg"
+      ////            ),
+      //            Song(
+      //                mediaId = "009",
+      //                title = "Yaaro",
+      //                artistName = "Atif Aslam",
+      //                songUrl = "http://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/11%20-%20Yaaro%20(Apniisp.Com).mp3",
+      //                imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2kzebrh6GLMr3VM1eukp3dpSaGg_LMjlig&s"
+      //            ),
+      ////            Song(
+      ////                mediaId = "010",
+      ////                title = "Hangami Halaat",
+      ////                subtitle = "Atif Aslam",
+      ////                songUrl = "http://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/12%20-%20Hangami%20Halaat%20(Apniisp.Com).mp3",
+      ////                imageUrl = "https://example.com/song2-image.jpg"
+      ////            ),
+      //            Song(
+      //                mediaId = "11",
+      //                title = "Kahani Suno (Mujhe Pyar Hua Tha)",
+      //                artistName = "Kaifi Khalil",
+      //                songUrl = "http://songs.apniisp.com/Mix%20-%20Songs/323%20-%20Kahani%20Suno%20-%20Kaifi%20Khalil%20(ApniISP.Com).mp3",
+      //                imageUrl = "https://i.ytimg.com/vi/_XBVWlI8TsQ/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAAX0i887kNXH0IAlODeNs3fV_CvQ"
+      //            ),
+      //            Song(
+      //                mediaId = "12",
+      //                title = "Iraaday (Kaisa Sama Hai)",
+      //                artistName = "Abdul Hannan",
+      //                songUrl = "http://songs.apniisp.com/Mix%20-%20Songs/322%20-%20Iraaday%20-%20Abdul%20Hannan%20(ApniISP.Com).mp3",
+      //                imageUrl = "https://i.ytimg.com/vi/_rOZUz4AIw8/sddefault.jpg"
+      //            ),
+      //            Song(
+      //                mediaId = "13",
+      //                title = "Habibi",
+      //                artistName = "Asim Azhar",
+      //                songUrl = "http://songs.apniisp.com/Mix%20-%20Songs/321%20-%20Habibi%20-%20Asim%20Azhar%20(ApniISP.Com).mp3",
+      //                imageUrl = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpPu9bzcCfb4lKuTDPh6lv7QWaqAF5Dffu_A&s"
+      //            ),
+      //            Song(
+      //                mediaId = "13",
+      //                title = "Na Cher Malangaan Nu",
+      //                artistName = "Farhan Saeed",
+      //                songUrl = "http://songs.apniisp.com/Mix%20-%20Songs/319%20-%20Na%20Cher%20Malangaan%20Nu%20-%20Farhan%20Saeed%20&%20Aima%20Baig%20(ApniISP.Com).mp3",
+      //                imageUrl = "https://i1.sndcdn.com/artworks-2pRHe8jhmlzkqOu4-UAc1Cw-t500x500.jpg"
+      //            )
+      //        )
+      */
 
     }
 
@@ -138,10 +224,9 @@ class MusicDatabase {
             Category(id = 4, name = "Classical", image = "https://ma-hub.imgix.net/wp-images/2022/04/26202531/Classical-Music-1-scaled.jpg?w=800&h=400&auto=format"),
             Category(id = 5, name = "Hip Hop", image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuELERpDmqSUR6yosb1QS78-DtmpE-cRe4Jg&s"),
             Category(id = 6, name = "Qawwali", image = "https://f4.bcbits.com/img/a4243394611_65"),
-            Category(id = 7, name = "Country", image = R.drawable.placeholder.toString()),
-            Category(id = 8, name = "Reggae", image = R.drawable.placeholder.toString()),
-            Category(id = 9, name = "Blues", image = R.drawable.pop_img.toString()),
-            Category(id = 10, name = "R&B", image = R.drawable.placeholder.toString())
+            Category(id = 7, name = "Folk", image = "https://ih1.redbubble.net/image.5162404156.9480/flat,750x,075,f-pad,750x1000,f8f8f8.jpg"),
+            Category(id = 8, name = "Reggae", image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKjHPmj6qfsuaQTpkkkrL0a_8SWcD4lE9caw&s"),
+            Category(id = 9, name = "Blues", image = "https://ih1.redbubble.net/image.554049168.5499/flat,750x,075,f-pad,750x1000,f8f8f8.u5.jpg"),
         )
     }
 
