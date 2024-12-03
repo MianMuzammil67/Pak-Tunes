@@ -8,13 +8,45 @@
     android:orientation="vertical"
     android:id="@+id/main">
 
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:weightSum="3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="34dp"
+            android:layout_weight="0.5"
+            app:srcCompat="@drawable/ic_prev" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/song_title"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_weight="1.5"
+            android:textStyle="bold" />
+    </LinearLayout>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/songCover"
         android:layout_width="match_parent"
         android:layout_height="350dp"
         android:layout_margin="30dp"
         app:cardCornerRadius="30dp"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         tools:layout_editor_absoluteX="30dp">
 
         <ImageView
@@ -43,50 +75,47 @@
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="26dp"
+        android:layout_marginStart="8dp"
         android:text="00:00"
-        app:layout_goneMarginTop="16dp"
         android:textColor="@color/white"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/progressBar"
-        android:textSize="20sp" />
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@+id/seekbar"
+        app:layout_constraintTop_toBottomOf="@+id/seekbar"
+        app:layout_goneMarginTop="16dp" />
 
     <TextView
         android:id="@+id/duration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:text="00:00"
         android:textColor="@color/white"
-        android:layout_marginTop="8dp"
-        app:layout_goneMarginTop="16dp"
-        android:layout_marginEnd="26dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/progressBar"
-        android:textSize="20sp" />
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="@+id/seekbar"
+        app:layout_constraintTop_toTopOf="@+id/time"
+        app:layout_goneMarginTop="16dp" />
 
     <androidx.appcompat.widget.AppCompatSeekBar
         android:id="@+id/seekbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="20dp"
         android:progressBackgroundTint="@color/purple"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/time"
-        app:layout_goneMarginTop="4dp" />
+        app:layout_constraintTop_toBottomOf="@+id/tvArtistName" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_player_extended"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/seekbar">
+        app:layout_constraintTop_toBottomOf="@+id/time">
 
         <ImageView
             android:id="@+id/btnPrevTrack"
@@ -139,27 +168,37 @@
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/song_title"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/textView2"
+        app:layout_constraintBottom_toTopOf="@+id/tvArtistName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="@+id/tvSongTitle"
         app:srcCompat="@drawable/heart" />
+
+    <TextView
+        android:id="@+id/tvSongTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/nunito_bold"
+        android:text="@string/song_title"
+        android:textColor="@color/text_colour"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/songCover"
+        app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+
+    <TextView
+        android:id="@+id/tvArtistName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/nunito_semibold"
+        android:text="@string/artist_name"
+        android:textColor="@color/text_colour"
+        app:layout_constraintStart_toStartOf="@+id/tvSongTitle"
+        app:layout_constraintTop_toBottomOf="@+id/tvSongTitle" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
