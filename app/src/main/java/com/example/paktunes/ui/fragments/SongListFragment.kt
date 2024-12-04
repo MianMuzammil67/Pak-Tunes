@@ -6,7 +6,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.paktunes.R
+import com.example.paktunes.adapter.RvAdapter
 import com.example.paktunes.databinding.FragmentSongListBinding
 import com.example.paktunes.ui.viewModel.CategoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SongListFragment : Fragment(R.layout.fragment_song_list) {
 
     private val viewModel: CategoryViewModel by viewModels()
+    private lateinit var recyclerViewAdapter :RvAdapter
     private lateinit var binding: FragmentSongListBinding
     private val arg : SongListFragmentArgs by navArgs()
     private val TAG = "SongListFragment"
@@ -22,10 +25,25 @@ class SongListFragment : Fragment(R.layout.fragment_song_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSongListBinding.bind(view)
+        setUpRecyclerView()
 
-    arg.let {
-        Toast.makeText(requireContext(), it.CategoryName, Toast.LENGTH_LONG).show()
+        arg.let {
+            binding.tvCategoryName.text = it.CategoryName
+            Toast.makeText(requireContext(), it.CategoryName, Toast.LENGTH_LONG).show()
+            viewModel.getSongsByCategoryName(categoryName = it.CategoryName)
 
+            viewModel.filteredSongsLiveData.observe(viewLifecycleOwner){ filteredList->
+                recyclerViewAdapter.submitList(filteredList)
+            }
+        }
+
+    }
+    private fun setUpRecyclerView(){
+        recyclerViewAdapter = RvAdapter()
+        binding.recyclerView.apply {
+            adapter = recyclerViewAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
     }
 
 
@@ -47,4 +65,4 @@ class SongListFragment : Fragment(R.layout.fragment_song_list) {
 //            }
 //        }
     }
-}
+//}

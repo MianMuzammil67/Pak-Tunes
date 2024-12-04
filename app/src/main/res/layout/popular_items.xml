@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="@color/app_background"
     app:cardCornerRadius="12dp">
 
     <androidx.cardview.widget.CardView
@@ -37,7 +36,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginBottom="30dp"
         android:text="@string/song_title"
-        android:textColor="@color/white"
+        android:textColor="@color/text_colour"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/cardView"
@@ -49,7 +48,7 @@
         android:id="@+id/tvSongArtist"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
+        android:textColor="@color/text_colour"
         android:text="@string/artist_name"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="@+id/tvSongTitle"

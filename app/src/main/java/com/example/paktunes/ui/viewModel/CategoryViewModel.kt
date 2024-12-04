@@ -7,9 +7,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.paktunes.data.entities.Category
 import com.example.paktunes.data.entities.Song
 import com.example.paktunes.repository.CategoryRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class CategoryViewModel @Inject constructor(private val repository: CategoryRepository) : ViewModel() {
 
     private val _musicCategory = MutableLiveData<List<Category>>()
@@ -24,6 +26,15 @@ class CategoryViewModel @Inject constructor(private val repository: CategoryRepo
     private val _songs = MutableLiveData<List<Song>>()
     val songsLiveData: LiveData<List<Song>> = _songs
 
+    init {
+        getAllSongs()
+    }
+
+    private fun getAllSongs() = viewModelScope.launch {
+        val allSongs = repository.getAllSongs() // Fetch from repository
+        _songs.value = allSongs // Post the full list of songs to _songs LiveData
+    }
+
 
     private fun getAllMusicCategory() = viewModelScope.launch {
         val artist =  repository.getAllMusicCategories()
@@ -36,11 +47,10 @@ class CategoryViewModel @Inject constructor(private val repository: CategoryRepo
 
     }
 
-
-    fun getSongsByCategories(categoryName : String) {
+    fun getSongsByCategoryName(categoryName : String) {
         val filteredSongs = _songs.value?.filter { song ->
             song.category.equals(categoryName, ignoreCase = true)
         }
-        _filteredSongs.postValue(filteredSongs!!)
+        _filteredSongs.postValue(filteredSongs?: emptyList())
     }
 }

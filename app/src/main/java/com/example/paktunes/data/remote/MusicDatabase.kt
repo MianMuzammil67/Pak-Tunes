@@ -225,7 +225,7 @@ class MusicDatabase {
             Category(id = 5, name = "Hip Hop", image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSuELERpDmqSUR6yosb1QS78-DtmpE-cRe4Jg&s"),
             Category(id = 6, name = "Qawwali", image = "https://f4.bcbits.com/img/a4243394611_65"),
             Category(id = 7, name = "Folk", image = "https://ih1.redbubble.net/image.5162404156.9480/flat,750x,075,f-pad,750x1000,f8f8f8.jpg"),
-            Category(id = 8, name = "Reggae", image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKjHPmj6qfsuaQTpkkkrL0a_8SWcD4lE9caw&s"),
+            Category(id = 8, name = "Romantic", image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSKjHPmj6qfsuaQTpkkkrL0a_8SWcD4lE9caw&s"),
             Category(id = 9, name = "Blues", image = "https://ih1.redbubble.net/image.554049168.5499/flat,750x,075,f-pad,750x1000,f8f8f8.u5.jpg"),
         )
     }
