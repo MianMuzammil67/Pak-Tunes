@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.example.paktunes.R
 import com.example.paktunes.adapter.RvAdapter
 import com.example.paktunes.databinding.ArtistDetailFragmentBinding
@@ -29,11 +30,13 @@ class ArtistDetailFragment(): Fragment(R.layout.artist_detail_fragment) {
         setupRecyclerView()
 
         args.let {args ->
-            binding.tvArtistName .text = args.artistName
+            val artistData = args.artistData
+            binding.tvArtistName .text = artistData.name
+            binding.tvDescription.text = artistData.description
+            Glide.with(requireContext()).load(artistData.image).placeholder(R.drawable.placeholder).into(binding.ivArtistPhoto)
+            Toast.makeText(requireContext(), artistData.name, Toast.LENGTH_SHORT).show()
 
-            Toast.makeText(requireContext(), args.artistName, Toast.LENGTH_SHORT).show()
-
-           viewModel.getSongsByArtistId(args.artistName)
+           viewModel.getSongsByArtistId(artistData.name)
             viewModel.filteredSongsLiveData.observe(viewLifecycleOwner){filteredSongs ->
                 Log.d(TAG, "onViewCreated: filteredSongs $filteredSongs ")
                 rvAdapter.submitList(filteredSongs)

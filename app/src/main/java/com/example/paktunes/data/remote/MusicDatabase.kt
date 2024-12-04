@@ -251,18 +251,19 @@ class MusicDatabase {
 
     fun getAllArtist() : List<Artist>{
         return listOf(
-            Artist(id = 1, name = "Atif Aslam", genre = "Pop", image = "https://i1.sndcdn.com/artworks-000076447394-g1y3e7-t500x500.jpg"),
-            Artist(id = 2, name = "Rahat Fateh Ali Khan", genre = "Qawwali", image = "https://m.media-amazon.com/images/M/MV5BM2RjOGFjMTktMDhmOS00ODA5LWEwMjctMzZhNWE0ODJlZjliXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"),
-            Artist(id = 3, name = "Asim Azhar", genre = "Pop", image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOXLkXwHFQU2A6TWCybF0oc4wD4pBbl-mXlw&s"),
-            Artist(id = 4, name = "Abida Parveen", genre = "Sufi", image = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Abida_Parveen.jpg/220px-Abida_Parveen.jpg"),
-            Artist(id = 5, name = "Ali Zafar", genre = "Pop", image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXmsgEPWjQqPcZjqb1juV3LMx-u--5jLGytA&s"),
-            Artist(id = 6, name = "Nusrat Fateh Ali Khan", genre = "Qawwali", image = "https://feminisminindia.com/wp-content/uploads/2018/02/1163627-nus-1471339177-861-640x480.gif.png.webp"),
-            Artist(id = 7, name = "Junoon", genre = "Rock", image = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Junoon_Live_at_Channel_V_Awards.jpg/250px-Junoon_Live_at_Channel_V_Awards.jpg"),
-            Artist(id = 8, name = "Bilal Saeed", genre = "hip hop", image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSnZ-xLH-QQfsQ6yqF8AHiNnAKWGdq5OK0mw&s"),
-            Artist(id = 9, name = "Talha Anjum", genre = "hip hop", image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzOdbnlzfLbF_kEAXQIe-3QhTDHB3FbCMYyg&s"),
-            Artist(id = 10, name = "Farhan Saeed", genre = "Pop", image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSKEraSOlivWib9A8ZgEpclfeJTbPic7O5Iw&s"),
-            Artist(id = 11, name = "Mehdi Hassan", genre = "Classical", image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5eTk6BbyYj8U5EPGOrB7diz4XkSv6ILqnp1SAiA50OqePvxGX")
-                      )
+                Artist(id = 1, name = "Atif Aslam", genre = "Pop", description = "Atif Aslam – A renowned Pakistani singer known for his soulful voice and hits in Bollywood and Pakistani music, primarily in the pop genre.", image = "https://i1.sndcdn.com/artworks-000076447394-g1y3e7-t500x500.jpg"),
+        Artist(id = 2, name = "Rahat Fateh Ali Khan", genre = "Qawwali", description = "Rahat Fateh Ali Khan – A legendary qawwali singer from Pakistan, famous for his powerful and soulful performances in Sufi and devotional music.", image = "https://m.media-amazon.com/images/M/MV5BM2RjOGFjMTktMDhmOS00ODA5LWEwMjctMzZhNWE0ODJlZjliXkEyXkFqcGc@._V1_FMjpg_UX1000_.jpg"),
+        Artist(id = 3, name = "Asim Azhar", genre = "Pop", description = "Asim Azhar – A popular Pakistani pop singer and songwriter, known for his modern sound and contributions to the youth music scene.", image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOXLkXwHFQU2A6TWCybF0oc4wD4pBbl-mXlw&s"),
+        Artist(id = 4, name = "Abida Parveen", genre = "Sufi", description = "Abida Parveen – One of Pakistan's most celebrated Sufi singers, known for her spiritual performances and mastery over traditional Sufi music.", image = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Abida_Parveen.jpg/220px-Abida_Parveen.jpg"),
+        Artist(id = 5, name = "Ali Zafar", genre = "Pop", description = "Ali Zafar – A multi-talented Pakistani artist, known for his work in pop music, acting, and his versatility in both Bollywood and Pakistani entertainment.", image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXmsgEPWjQqPcZjqb1juV3LMx-u--5jLGytA&s"),
+        Artist(id = 6, name = "Nusrat Fateh Ali Khan", genre = "Qawwali", description = "Nusrat Fateh Ali Khan – A world-renowned Qawwali singer whose powerful voice and performances revolutionized Sufi music internationally.", image = "https://feminisminindia.com/wp-content/uploads/2018/02/1163627-nus-1471339177-861-640x480.gif.png.webp"),
+        Artist(id = 7, name = "Junoon", genre = "Rock", description = "Junoon – A legendary Pakistani rock band, famous for blending rock music with Sufi poetry and making an iconic impact on the Pakistani music scene.", image = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Junoon_Live_at_Channel_V_Awards.jpg/250px-Junoon_Live_at_Channel_V_Awards.jpg"),
+        Artist(id = 8, name = "Bilal Saeed", genre = "hip hop", description = "Bilal Saeed – A rising star in the Pakistani hip-hop and R&B scene, known for his smooth blend of contemporary beats with urban lyrics.", image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSnZ-xLH-QQfsQ6yqF8AHiNnAKWGdq5OK0mw&s"),
+        Artist(id = 9, name = "Talha Anjum", genre = "hip hop", description = "Talha Anjum – A prominent figure in Pakistan’s hip-hop and rap scene, part of the group 'Young Stunners,' known for his introspective and impactful lyrics.", image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzOdbnlzfLbF_kEAXQIe-3QhTDHB3FbCMYyg&s"),
+        Artist(id = 10, name = "Farhan Saeed", genre = "Pop", description = "Farhan Saeed – A former member of the band Jal, Farhan Saeed is a well-known Pakistani pop singer, songwriter, and music producer.", image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSKEraSOlivWib9A8ZgEpclfeJTbPic7O5Iw&s"),
+        Artist(id = 11, name = "Mehdi Hassan", genre = "Classical", description = "Mehdi Hassan – Known as the 'King of Ghazals,' Mehdi Hassan was a classical Pakistani singer renowned for his soulful ghazals and playback singing.", image = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR5eTk6BbyYj8U5EPGOrB7diz4XkSv6ILqnp1SAiA50OqePvxGX")
+        )
+
     }
 
 //    current artis k songs k liy view model main getallsongs main query chlani hy

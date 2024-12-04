@@ -47,11 +47,14 @@
         android:name="com.example.paktunes.ui.fragments.ArtistDetailFragment"
         android:label="ArtistDetailFragment"
         tools:layout="@layout/artist_detail_fragment" >
-        <argument
-            android:name="artist_name"
-            app:argType="string" />
+<!--        <argument-->
+<!--            android:name="artist_name"-->
+<!--            app:argType="string" />-->
         <action
             android:id="@+id/action_artistDetailFragment_to_songDetailFragment"
             app:destination="@id/songDetailFragment" />
+        <argument
+            android:name="artistData"
+            app:argType="com.example.paktunes.data.entities.Artist" />
     </fragment>
 </navigation>

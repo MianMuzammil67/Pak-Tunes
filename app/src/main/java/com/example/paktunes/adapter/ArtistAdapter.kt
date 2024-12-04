@@ -12,7 +12,7 @@ import com.example.paktunes.databinding.ArtistItemBinding
 
 class ArtistAdapter : RecyclerView.Adapter<ArtistAdapter.ViewHolder>() {
 
-    private var _itemClicked: ((String) -> Unit)? = null
+    private var _itemClicked: ((Artist) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
@@ -27,7 +27,7 @@ class ArtistAdapter : RecyclerView.Adapter<ArtistAdapter.ViewHolder>() {
         holder.itemView.apply {
             setOnClickListener{
                 _itemClicked?.let {
-                    it(artist.name)
+                    it(artist)
                 }
                 _itemClicked
             }
@@ -55,7 +55,7 @@ class ArtistAdapter : RecyclerView.Adapter<ArtistAdapter.ViewHolder>() {
         diffUtil.submitList(list)
     }
 
-    fun onCardClickListener (listener: (String)-> Unit){
+    fun onCardClickListener (listener: (Artist)-> Unit){
             _itemClicked = listener
     }
 
