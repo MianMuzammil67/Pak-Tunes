@@ -15,6 +15,7 @@
         android:text="@string/artist_name"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:fontFamily="@font/nunito_bold"
         app:layout_constraintStart_toEndOf="@+id/cardView2"
         app:layout_constraintTop_toTopOf="@+id/cardView2" />
 
@@ -70,6 +71,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
+        android:fontFamily="@font/nunito_semibold"
         android:text="@string/artist_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tvArtistName"

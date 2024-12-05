@@ -13,7 +13,9 @@
     <color name="brown">#443B3C</color>
     <color name="deep_gray">#121212</color>
 <!--    <color name="text_colour">#F2F2F2</color>-->
-    <color name="text_colour">#FF000000</color>
+<!--    <color name="text_colour">#FF000000</color>-->
+    <color name="text_colour">#1b1b1b</color>
+    <color name="image_tint">#443B3C</color>
 
     <color name="purple">#FFBB86FC</color>
     <color name="olive_green">#678026</color>

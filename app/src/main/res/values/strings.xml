@@ -15,5 +15,13 @@
     <string name="songs">Songs</string>
     <string name="artist_description">A renowned Pakistani singer known for his soulful voice and hits in Bollywood and Pakistani music, primarily in the pop genre</string>
     <string name="back_button">back button</string>
+    <string name="save_song">save song</string>
+    <string name="start_time">00:00</string>
+    <string name="end_time">00:00</string>
+    <string name="previous_song">previous song</string>
+    <string name="next_song">next song</string>
+    <string name="skip_backward">skip backward</string>
+    <string name="button_play_pause">button Play / Pause</string>
+    <string name="skip_forward">skip forward</string>
 
 </resources>

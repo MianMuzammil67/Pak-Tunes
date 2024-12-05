@@ -6,6 +6,7 @@
     </style>
 
         <color name="text_colour">#F2F2F2</color>
+        <color name="image_tint">#F2F2F2</color>
 
 
 </resources>
