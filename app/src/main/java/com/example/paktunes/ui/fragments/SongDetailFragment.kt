@@ -66,17 +66,6 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
             }
         }
 
-//        viewModel.currentSong.observe(viewLifecycleOwner) { songs ->
-//            if (songs != null) {
-//                currSong = songs
-//            } else {
-//                Log.d(TAG, "Current song is null.")
-//                Toast.makeText(requireContext(), "Current song is null", Toast.LENGTH_SHORT).show()
-//            }
-//        } 
-
-
-
 
         binding.btnNextTrack.setOnClickListener {
             viewModel.playNextSong()
