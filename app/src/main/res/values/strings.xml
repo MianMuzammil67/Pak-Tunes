@@ -23,5 +23,6 @@
     <string name="skip_backward">skip backward</string>
     <string name="button_play_pause">button Play / Pause</string>
     <string name="skip_forward">skip forward</string>
+    <string name="playing">Playing…</string>
 
 </resources>

@@ -18,6 +18,7 @@ import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
 import androidx.media3.session.MediaController
 import androidx.media3.session.SessionToken
+import androidx.navigation.fragment.navArgs
 import com.example.paktunes.R
 import com.example.paktunes.data.entities.Song
 import com.example.paktunes.databinding.FragmentSongDetailBinding
@@ -33,8 +34,11 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
     private lateinit var binding: FragmentSongDetailBinding
     private lateinit var currSong: Song
     private lateinit var songList: List<Song>
+    private val args: SongDetailFragmentArgs by navArgs()
+
     private val viewModel: MusicViewModel by viewModels()
     private val TAG = "SongDetailFragment"
+
 
     var duration: Int = 0
     private lateinit var controller: MediaController
@@ -49,23 +53,28 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSongDetailBinding.bind(view)
+        val position = args.position
+        Log.d(TAG, "Received position: $position")
 
-        viewModel.songsLiveData.observe(viewLifecycleOwner) { songs ->
-            songList = songs
-            if (songs.isNotEmpty()) {
-                playMedia(songs[viewModel.currentSongIndex.value ?: 0])
-            }
-        }
-        viewModel.currentSongIndex.observe(viewLifecycleOwner) { index ->
-            if (index != null && index in 0 until (viewModel.songsLiveData.value?.size ?: 0)) {
-                // Play the song at the current index
-                val currentSong = viewModel.songsLiveData.value?.get(index)
-                if (currentSong != null) {
-                    playMedia(currentSong)
-                }
-            }
-        }
 
+
+//        viewModel.songsLiveData.observe(viewLifecycleOwner) { songs ->
+//            songList = songs
+//            if (songs.isNotEmpty() && args.position >= 0 && args.position < songs.size) {
+//                currSong = songs[args.position]  // Use position to fetch the song
+//                playMedia(currSong)  // Play the song at the provided position
+//            }
+//        }
+//        viewModel.currentSongIndex.observe(viewLifecycleOwner) { index ->
+//            if (index != null && index in 0 until (viewModel.songsLiveData.value?.size ?: 0)) {
+//                // Play the song at the current index
+//                val currentSong = viewModel.songsLiveData.value?.get(index)
+//                if (currentSong != null) {
+//                    playMedia(currentSong)
+//                }
+//            }
+//        }
+//
 //        viewModel.currentSong.observe(viewLifecycleOwner) { songs ->
 //            if (songs != null) {
 //                currSong = songs
@@ -73,8 +82,7 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
 //                Log.d(TAG, "Current song is null.")
 //                Toast.makeText(requireContext(), "Current song is null", Toast.LENGTH_SHORT).show()
 //            }
-//        } 
-
+//        }
 
 
 
@@ -128,8 +136,8 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
     private fun playMedia(song: Song) {
 
         val mediaItem = MediaItem.Builder()
-            .setMediaId(song.songUrl)
-            //            .setMediaId("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3")
+//            .setMediaId(song.songUrl)
+                        .setMediaId("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3")
             .setMediaMetadata(
                 MediaMetadata.Builder()
                     .setFolderType(MediaMetadata.FOLDER_TYPE_ALBUMS)

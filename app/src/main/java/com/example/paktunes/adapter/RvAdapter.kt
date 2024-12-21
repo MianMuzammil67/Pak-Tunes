@@ -43,9 +43,9 @@ class RvAdapter(
                 .load(currentSongList.imageUrl)
                 .placeholder(R.drawable.placeholder)
                 .into(holder.binding.songThumbnail)
-            //            setOnClickListener {
-            //                _onItemClick?.let { it1 -> it1(position) }
-            //            }
+                        setOnClickListener {
+                            _onItemClick?.let { it(position) }
+                        }
         }
     }
 

@@ -1,22 +1,26 @@
 package com.example.paktunes.ui.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.paktunes.R
 import com.example.paktunes.adapter.RvAdapter
 import com.example.paktunes.databinding.FragmentSongListBinding
 import com.example.paktunes.ui.viewModel.CategoryViewModel
+import com.example.paktunes.ui.viewModel.MusicViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SongListFragment : Fragment(R.layout.fragment_song_list) {
 
     private val viewModel: CategoryViewModel by viewModels()
+    private val musicViewModel: MusicViewModel by viewModels()
     private lateinit var recyclerViewAdapter :RvAdapter
     private lateinit var binding: FragmentSongListBinding
     private val arg : SongListFragmentArgs by navArgs()
@@ -36,7 +40,12 @@ class SongListFragment : Fragment(R.layout.fragment_song_list) {
                 recyclerViewAdapter.submitList(filteredList)
             }
         }
-
+        recyclerViewAdapter.onCardClickListener{ position->
+            Log.d(TAG, "Navigating to SongDetailFragment with position: $position")
+//            musicViewModel.setCurrentSongIndex(position)
+            val action = SongListFragmentDirections.actionSongListFragmentToSongDetailFragment(position)
+            findNavController().navigate(action)
+        }
     }
     private fun setUpRecyclerView(){
         recyclerViewAdapter = RvAdapter()

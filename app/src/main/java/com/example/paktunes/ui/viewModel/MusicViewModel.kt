@@ -1,8 +1,10 @@
 package com.example.paktunes.ui.viewModel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.example.paktunes.data.entities.Category
 import com.example.paktunes.data.entities.Song
@@ -36,20 +38,26 @@ class MusicViewModel @Inject constructor(private val repository: MainRepository)
         getMusicCategories()
         getPodcastCategories()
         getPopularSongs()
+//        fetchALLSongs()
     }
 
     //    purana but useful     ///////////////////////////////////////////////////////////////////////
 //    val currentSong: LiveData<Song?> = _currentSongIndex.map { index ->
 //        _songs.value?.getOrNull(index ?: -1)
 //    }
+
+    val currentSong: LiveData<Song?> = _currentSongIndex.map { index ->
+        _songs.value?.getOrNull(index)
+    }
+
     //    purana but useful
 //    private fun fetchALLSongs() {
 //        viewModelScope.launch {
 //            val songList = repository.getAllSongs()
-//            _songs.postValue(songList)
-//            if (songList.isNotEmpty()) {
-//                _currentSongIndex.postValue(1)
-//            }
+//            _songs.value=songList
+////            if (songList.isNotEmpty()) {
+////                _currentSongIndex.value = 1
+////            }
 //        }
 //    }
     fun getALLSongs() {
@@ -76,12 +84,24 @@ class MusicViewModel @Inject constructor(private val repository: MainRepository)
 //        //    current category k songs k liy view model main getallsongs main query chlani hy
 //    }
 
-
     fun setCurrentSongIndex(index: Int) {
-        if (index in _songs.value!!.indices) {
+        val songs = _songs.value  // Get the current value of _songs
+        if (songs != null && index in songs.indices) {
             _currentSongIndex.value = index
+        } else {
+            // Optionally handle the case where songs is null or the index is out of bounds
+            Log.e("MusicViewModel", "Invalid index or songs list is null")
         }
     }
+
+
+//    fun setCurrentSongIndex(index: Int) {
+//        if (index in _songs.value!!.indices) {
+//            _currentSongIndex.value = index
+//        }
+//    }
+
+
 
     fun playNextSong() {
         val currentIndex = _currentSongIndex.value ?: return
