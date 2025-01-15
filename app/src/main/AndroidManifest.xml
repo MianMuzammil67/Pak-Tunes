@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <application
         android:name=".di.PakTuneApplication"
@@ -16,15 +17,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PakTunes"
         tools:targetApi="31">
-        <activity
-            android:name=".ui.MusicActivity"
-            android:exported="true" >
+<!--        <activity-->
+<!--            android:name=".ui.MusicActivity"-->
+<!--            android:exported="true" >-->
 
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 <!--                <category android:name="android.intent.category.LAUNCHER" />-->
 <!--            </intent-filter>-->
-        </activity>
+<!--        </activity>-->
 
         <activity
             android:name=".ui.MainActivity"

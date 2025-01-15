@@ -12,14 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.paktunes.R
 import com.example.paktunes.adapter.RvAdapter
 import com.example.paktunes.databinding.FragmentSongListBinding
-import com.example.paktunes.ui.viewModel.CategoryViewModel
 import com.example.paktunes.ui.viewModel.MusicViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class SongListFragment : Fragment(R.layout.fragment_song_list) {
 
-    private val viewModel: CategoryViewModel by viewModels()
+//    private val viewModel: CategoryViewModel by viewModels()
+    private val viewModel: MusicViewModel by viewModels()
     private val musicViewModel: MusicViewModel by viewModels()
     private lateinit var recyclerViewAdapter :RvAdapter
     private lateinit var binding: FragmentSongListBinding
@@ -33,16 +33,27 @@ class SongListFragment : Fragment(R.layout.fragment_song_list) {
 
         arg.let {
             binding.tvCategoryName.text = it.CategoryName
-            Toast.makeText(requireContext(), it.CategoryName, Toast.LENGTH_LONG).show()
-            viewModel.getSongsByCategoryName(categoryName = it.CategoryName)
+            Toast.makeText(requireContext(), it.CategoryName, Toast.LENGTH_SHORT).show()
+//            viewModel.getSongsByCategoryName(categoryName = it.CategoryName)
+            viewModel.songsLiveData.observe(viewLifecycleOwner){ list->
+                Log.d(TAG, "songsLiveData: $list")
+                if (!list.isNullOrEmpty()) {
+                    // Once songs are available, filter by category
+                    viewModel.getSongsByCategoryName(categoryName = it.CategoryName)
+                }
 
+            }
             viewModel.filteredSongsLiveData.observe(viewLifecycleOwner){ filteredList->
                 recyclerViewAdapter.submitList(filteredList)
             }
         }
+
+
+
+
         recyclerViewAdapter.onCardClickListener{ position->
             Log.d(TAG, "Navigating to SongDetailFragment with position: $position")
-//            musicViewModel.setCurrentSongIndex(position)
+            viewModel.setCurrentSongIndex(position)
             val action = SongListFragmentDirections.actionSongListFragmentToSongDetailFragment(position)
             findNavController().navigate(action)
         }

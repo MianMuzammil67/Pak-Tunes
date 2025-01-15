@@ -7,8 +7,7 @@ class ArtistRepository@Inject constructor(private val musicDatabase: MusicDataba
 
     suspend fun getAllSongs() = musicDatabase.getAllSongs()
 
-    fun getAllArtists()= musicDatabase.getAllArtist()
-
+    suspend fun getAllArtists()= musicDatabase.getAllArtist()
 
 
 //    private val db = FirebaseFirestore.getInstance()

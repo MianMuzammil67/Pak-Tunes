@@ -10,7 +10,7 @@ data class Song(
     val artistName: String = "",
     val songUrl: String = "",
     val imageUrl: String = "",
-    val category: String,
+    val category: String= "",
 ): Parcelable
 
 //data class Song(

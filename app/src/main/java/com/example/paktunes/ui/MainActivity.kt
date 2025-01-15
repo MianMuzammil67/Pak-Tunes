@@ -14,8 +14,9 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     @Inject
-     lateinit var glide: RequestManager
+    lateinit var glide: RequestManager
     private lateinit var navHost: NavHostFragment
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +27,6 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
         navHost =
             supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
     }

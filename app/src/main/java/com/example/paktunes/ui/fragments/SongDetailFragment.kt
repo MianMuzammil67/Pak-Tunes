@@ -10,7 +10,6 @@ import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.media3.common.MediaItem
@@ -23,6 +22,7 @@ import com.example.paktunes.R
 import com.example.paktunes.data.entities.Song
 import com.example.paktunes.databinding.FragmentSongDetailBinding
 import com.example.paktunes.exoplayer.service.MusicService
+import com.example.paktunes.ui.viewModel.CategoryViewModel
 import com.example.paktunes.ui.viewModel.MusicViewModel
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.common.util.concurrent.MoreExecutors
@@ -32,13 +32,13 @@ import dagger.hilt.android.AndroidEntryPoint
 class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
 
     private lateinit var binding: FragmentSongDetailBinding
-    private lateinit var currSong: Song
+    private var currSong: Song? = null
     private lateinit var songList: List<Song>
     private val args: SongDetailFragmentArgs by navArgs()
 
     private val viewModel: MusicViewModel by viewModels()
+    private val catViewModel: CategoryViewModel by viewModels()
     private val TAG = "SongDetailFragment"
-
 
     var duration: Int = 0
     private lateinit var controller: MediaController
@@ -54,38 +54,51 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSongDetailBinding.bind(view)
         val position = args.position
-        Log.d(TAG, "Received position: $position")
+//        Log.d(TAG, "Received position: $position")
 
+        initializeMediaController()
+        setupUIControls()
 
+//        viewModel.getSongsByCategoryName(categoryName = "pop")
 
-//        viewModel.songsLiveData.observe(viewLifecycleOwner) { songs ->
-//            songList = songs
-//            if (songs.isNotEmpty() && args.position >= 0 && args.position < songs.size) {
-//                currSong = songs[args.position]  // Use position to fetch the song
-//                playMedia(currSong)  // Play the song at the provided position
-//            }
+        viewModel.filteredSongsLiveData.observe(viewLifecycleOwner) { list ->
+            songList = list
+            Log.d(TAG, "Received song index: ${list.toString()}")
+            currSong = list[position]
+            Log.d(TAG, "Received song index: ${currSong.toString()}")
+//            currSongIndex?.let { playMedia(it) }
+        }
+
+        viewModel.currentSongIndex.observe(viewLifecycleOwner){
+            Log.d(TAG, " currentSongIndex : $it")
+        }
+
+//        viewModel.setCurrentSongIndex(position)
+
+//        viewModel.currentSongIndex.observe(viewLifecycleOwner) { song ->
+//            Log.d(TAG, "Received song index: $song")
 //        }
-//        viewModel.currentSongIndex.observe(viewLifecycleOwner) { index ->
-//            if (index != null && index in 0 until (viewModel.songsLiveData.value?.size ?: 0)) {
-//                // Play the song at the current index
-//                val currentSong = viewModel.songsLiveData.value?.get(index)
-//                if (currentSong != null) {
-//                    playMedia(currentSong)
-//                }
-//            }
-//        }
-//
-//        viewModel.currentSong.observe(viewLifecycleOwner) { songs ->
-//            if (songs != null) {
-//                currSong = songs
-//            } else {
-//                Log.d(TAG, "Current song is null.")
-//                Toast.makeText(requireContext(), "Current song is null", Toast.LENGTH_SHORT).show()
-//            }
-//        }
+//        viewModel.getCurrentSongg()
+
+        viewModel.currentSongLiveData.observe(viewLifecycleOwner) { song ->
+            Toast.makeText(requireContext(), "Current song is not null $song", Toast.LENGTH_SHORT)
+                .show()
+            if (song != null) {
+                currSong = song
+                Toast.makeText(
+                    requireContext(),
+                    "Current song is not null $currSong",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                Log.d(TAG, "Current song is null.")
+                Toast.makeText(requireContext(), "Current song is null", Toast.LENGTH_SHORT).show()
+            }
+        }
 
 
-
+        binding.tvSongTitle.text = currSong?.title
+        binding.tvArtistName.text = currSong?.artistName
         binding.btnNextTrack.setOnClickListener {
             viewModel.playNextSong()
         }
@@ -93,8 +106,7 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
             viewModel.playPreviousSong()
         }
 
-        initializeMediaController()
-        setupUIControls()
+
     }
 
     private fun initializeMediaController() {
@@ -104,7 +116,7 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
         )
         mediaControllerFuture = MediaController.Builder(requireContext(), sessionToken).buildAsync()
         mediaControllerFuture?.apply {
-            addListener({
+            addListener(Runnable {
                 controller = get()
                 updateUIWithMediaController(controller)
                 // Ensure media is played appropriately based on state
@@ -116,7 +128,7 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
 
     private fun handlePlaybackBasedOnState() {
         if (controller.playbackState == Player.STATE_IDLE || controller.playbackState == Player.STATE_ENDED) {
-            playMedia(currSong)
+            playMedia()
         } else if (controller.playbackState == Player.STATE_READY || controller.playbackState == Player.STATE_BUFFERING) {
             updateUIWithPlayback()
         }
@@ -126,42 +138,45 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
         hideBuffering()
         updatePlayPauseButton(controller.playWhenReady)
         if (controller.playWhenReady) {
-            val currentPosition = controller.currentPosition.toInt() / 1000
-            binding.seekbar.progress = currentPosition
-            binding.time.text = getTimeString(currentPosition)
+            val currentposition = controller.currentPosition.toInt() / 1000
+            binding.seekbar.progress = currentposition
+            binding.time.text = getTimeString(currentposition)
             binding.duration.text = getTimeString(controller.duration.toInt() / 1000)
         }
     }
 
-    private fun playMedia(song: Song) {
-
-        val mediaItem = MediaItem.Builder()
-//            .setMediaId(song.songUrl)
-                        .setMediaId("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3")
-            .setMediaMetadata(
-                MediaMetadata.Builder()
-                    .setFolderType(MediaMetadata.FOLDER_TYPE_ALBUMS)
-                    .setArtworkUri(Uri.parse(song.imageUrl))
-//                    .setArtworkUri(Uri.parse("https://i.pinimg.com/736x/4b/02/1f/4b021f002b90ab163ef41aaaaa17c7a4.jpg"))
-                    .setAlbumTitle(song.title)
-                    .setDisplayTitle(song.title)
-                    .setSubtitle(song.artistName)
-                    .build()
-            ).build()
-
-        controller.setMediaItem(mediaItem)
+    private fun playMedia() {
+        val mediaItem = currSong?.let {
+            MediaItem.Builder()
+                //            .setMediaId("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3")
+//                .setMediaId("https://songs.apniisp.com/Atif%20Aslam%20-%20Meri%20Kahani/09%20-%20Kaun%20Tha%20-%20Kapkapi%20(Apniisp.Com).mp3")
+                .setMediaId(it.songUrl)
+                .setMediaMetadata(
+                    MediaMetadata.Builder()
+                        .setFolderType(MediaMetadata.FOLDER_TYPE_ALBUMS)
+//                        .setArtworkUri(Uri.parse("https://www.bbc.co.uk/staticarchive/50cf0c0b92f670f72bcb5a7d99ba93e94356786e.jpg"))
+                        .setArtworkUri(Uri.parse(it.imageUrl))
+                        .setAlbumTitle("SoundHelix")
+                        .setDisplayTitle(it.title)
+                        .build()
+                ).build()
+        }
+        if (mediaItem != null) {
+            controller.setMediaItem(mediaItem)
+        }
         controller.prepare()
         controller.play()
     }
 
     private fun updateUIWithMediaController(controller: MediaController) {
         controller.addListener(object : Player.Listener {
+
             override fun onPositionDiscontinuity(
                 oldPosition: Player.PositionInfo, newPosition: Player.PositionInfo, reason: Int
             ) {
-                val currentPosition = controller.currentPosition.toInt() / 1000
-                binding.seekbar.progress = currentPosition
-                binding.time.text = getTimeString(currentPosition)
+                val currentposition = controller.currentPosition.toInt() / 1000
+                binding.seekbar.progress = currentposition
+                binding.time.text = getTimeString(currentposition)
                 binding.duration.text = getTimeString(controller.duration.toInt() / 1000)
             }
 
@@ -285,11 +300,11 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
     }
 
     private fun showBuffering() {
-        binding.progressBar.show()
+        binding.progressBar.visibility = View.VISIBLE
     }
 
     private fun hideBuffering() {
-        binding.progressBar.hide()
+        binding.progressBar.visibility = View.GONE
     }
 
     private fun handlePlaybackEnded() {
@@ -314,110 +329,4 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
     }
 
 
-    companion object {
-        fun View.hide() {
-            isVisible = false
-        }
-
-        fun View.show() {
-            isVisible = true
-        }
-
-        const val CURRENT_POSITION = "CURRENT_POSITION"
-    }
-
-
 }
-//////////////////////////////////////////  usefull      \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-//class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
-//
-//    private val viewModel: MusicViewModel by viewModels()
-//    private lateinit var binding: FragmentSongDetailBinding
-//
-//    private var musicService: MusicService? = null
-//    private var isBound = false
-//
-//    private val serviceConnection = object : ServiceConnection {
-//        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-//            val binder = service as MusicService.MusicServiceBinder
-//            musicService = binder.getService()
-//            isBound = true
-//
-//            // Play the current song when connected
-//            viewModel.currentSongIndex.value?.let { index ->
-//                val song = viewModel.songs.value?.get(index)
-//                song?.let {
-//                    musicService?.playSong(it)
-//                    updateUI(it)
-//                }
-//            }
-//        }
-//
-//        override fun onServiceDisconnected(name: ComponentName?) {
-//            musicService = null
-//            isBound = false
-//        }
-//    }
-//
-//    override fun onStart() {
-//        super.onStart()
-//        // Bind to MusicService
-//        Intent(requireContext(), MusicService::class.java).also { intent ->
-//            requireContext().bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)
-//        }
-//    }
-//
-//    override fun onStop() {
-//        super.onStop()
-//        // Unbind from the service
-//        if (isBound) {
-//            requireContext().unbindService(serviceConnection)
-//            isBound = false
-//        }
-//    }
-//
-//    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-//        super.onViewCreated(view, savedInstanceState)
-//        binding = FragmentSongDetailBinding.bind(view)
-//
-//        // Observe current song changes
-//        viewModel.currentSongIndex.observe(viewLifecycleOwner) { index ->
-//            val song = viewModel.songs.value?.get(index)
-//            song?.let {
-//                musicService?.playSong(it)
-//                updateUI(it)
-//            }
-//        }
-//
-//        // Play/Pause Button
-//        binding.playButton.setOnClickListener {
-//            if (musicService?.isPlaying() == true) {
-//                musicService?.pause()
-//                binding.playButton.setImageResource(R.drawable.ic_play)
-//            } else {
-//                musicService?.play()
-//                binding.playButton.setImageResource(R.drawable.icon_pause)
-//            }
-//        }
-//
-//        // Next Button
-//        binding.nextButton.setOnClickListener {
-//            viewModel.playNextSong()
-//        }
-//
-//        // Previous Button
-//        binding.prevButton.setOnClickListener {
-//            viewModel.playPreviousSong()
-//        }
-//    }
-//
-//    private fun updateUI(song: Song) {
-//        binding.songTitle.text = song.title
-//        binding.songArtist.text = song.subtitle
-//        Glide.with(this)
-//            .load(song.imageUrl)
-//            .placeholder(R.drawable.placeholder)
-//            .into(binding.thumbnailImageView)
-//    }
-//}

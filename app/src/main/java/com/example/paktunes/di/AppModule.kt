@@ -9,6 +9,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.paktunes.R
 import com.example.paktunes.data.remote.MusicDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import dagger.Module
 import dagger.Provides
@@ -24,7 +25,8 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideGlide(@ApplicationContext context: Context
+    fun provideGlide(
+        @ApplicationContext context: Context
     ) = Glide.with(context).setDefaultRequestOptions(
         RequestOptions()
             .placeholder(R.drawable.placeholder)
@@ -32,12 +34,14 @@ object AppModule {
             .diskCacheStrategy(DiskCacheStrategy.DATA)
 
     )
+
     @Singleton
     @Provides
     fun provideAudioAttributes() = AudioAttributes.Builder()
         .setContentType(C.AUDIO_CONTENT_TYPE_MUSIC)
         .setUsage(C.USAGE_MEDIA)
         .build()
+
     @Singleton
     @Provides
     fun provideExoPlayer(
@@ -54,11 +58,16 @@ object AppModule {
         return FirebaseStorage.getInstance()
     }
 
+    @Provides
+    @Singleton
+    fun provideFirestore(): FirebaseFirestore {
+        return FirebaseFirestore.getInstance()
+    }
 
     @Provides
     @Singleton
     fun provideMusicDatabase() = MusicDatabase()
-
+}
 
 //    private fun createNotificationChannel() {
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -73,4 +82,4 @@ object AppModule {
 //            manager?.createNotificationChannel(channel)
 //        }
 
-}
+//}
