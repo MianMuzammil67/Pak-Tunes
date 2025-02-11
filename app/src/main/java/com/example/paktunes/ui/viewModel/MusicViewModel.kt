@@ -2,9 +2,9 @@ package com.example.paktunes.ui.viewModel
 
 import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.map
 import androidx.lifecycle.viewModelScope
 import com.example.paktunes.data.entities.Category
 import com.example.paktunes.data.entities.Song
@@ -17,7 +17,6 @@ import javax.inject.Inject
 @HiltViewModel
 class MusicViewModel @Inject constructor(private val repository: MainRepository) : ViewModel() {
 
-    private var curIndex = 0
     private val _filteredSongs = MutableLiveData<List<Song>>()
     val filteredSongsLiveData: LiveData<List<Song>> = _filteredSongs
 
@@ -34,11 +33,14 @@ class MusicViewModel @Inject constructor(private val repository: MainRepository)
     private val _songs = MutableLiveData<List<Song>>()
     val songsLiveData: LiveData<List<Song>> = _songs
 
-    private val _currentSongIndex = MutableLiveData<Int>(-1)
+    private val _currentSongIndex = MutableLiveData<Int>(1)
     val currentSongIndex: LiveData<Int> = _currentSongIndex
 
-    private val _currentSong = MutableLiveData<Song>()
-    val currentSongLiveData: LiveData<Song> = _currentSong
+//    private val _currentSong = MutableLiveData<Song>()
+//    val currentSongLiveData: LiveData<Song> = _currentSong
+
+    private val _currentSong = MediatorLiveData<Song?>()
+    val currentSong: LiveData<Song?> = _currentSong
 
 
     init {
@@ -46,10 +48,20 @@ class MusicViewModel @Inject constructor(private val repository: MainRepository)
         getMusicCategories()
         getPodcastCategories()
         getPopularSongs()
+
+        _currentSong.addSource(filteredSongsLiveData) { songs ->
+            updateCurrentSong()
+        }
+
+        _currentSong.addSource(currentSongIndex) { index ->
+            updateCurrentSong()
+        }
+
 //        _currentSongIndex.value = -1
     }
 
     //    purana but useful     ///////////////////////////////////////////////////////////////////////
+    /*
 //    val currentSong: LiveData<Song?> = _currentSongIndex.map { index ->
 //        _songs.value?.getOrNull(index ?: -1)
 //    }
@@ -78,7 +90,7 @@ class MusicViewModel @Inject constructor(private val repository: MainRepository)
 //    }
 
 
-     fun getCurrentSongg() {
+    fun getCurrentSongg() {
         _filteredSongs.observeForever { songs ->
             _currentSongIndex.value?.let { index ->
                 Log.d("MusicViewModel", "index before : $index")
@@ -91,20 +103,30 @@ class MusicViewModel @Inject constructor(private val repository: MainRepository)
         }
     }
 
-    fun getCurrentSong(): LiveData<Song?> {
-        return _filteredSongs.map { songs ->
-            if (songs.isNullOrEmpty()) {
-                Log.d("MusicViewModel", "getCurrentSong: songs list is empty")
-                return@map null
-            }
+//    fun getCurrentSong(): LiveData<Song?> {
+//        Log.d("MusicViewModel", "getCurrentSong is called")
+//        return _filteredSongs.map { songs ->
+//            val index = _currentSongIndex.value ?: 0
+//            Log.d("MusicViewModel", "getCurrentSong: index = $index")  // Log the current index
+//
+//            // Log the available songs to see if they're populated
+//            Log.d("MusicViewModel", "Filtered songs: $songs")
+//
+//            val currentSong = songs.getOrNull(index)
+//            Log.d(
+//                "MusicViewModel",
+//                "getCurrentSong: currentSong = $currentSong"
+//            ) // Log the current song
+//
+//            currentSong
+//        }
+//    }*/
 
-            val safeIndex = _currentSongIndex.value?.coerceIn(0, songs.lastIndex) ?: 0
-            Log.d("MusicViewModel", "getCurrentSong: safeIndex = $safeIndex")
-
-            songs.getOrNull(safeIndex)
-        }
+    private fun updateCurrentSong() {
+        val songs = _filteredSongs.value ?: emptyList()
+        val index = _currentSongIndex.value ?: 0
+        _currentSong.value = songs.getOrNull(index)
     }
-
 
 
     //    purana but useful
@@ -127,8 +149,6 @@ class MusicViewModel @Inject constructor(private val repository: MainRepository)
 
     }
 
-
-
     private fun getMusicCategories() = viewModelScope.launch {
         val musicCategoryList = repository.getAllMusicCategories()
         _musicCategories.postValue(musicCategoryList)
@@ -150,8 +170,9 @@ class MusicViewModel @Inject constructor(private val repository: MainRepository)
 //    }
 
     fun setCurrentSongIndex(index: Int) {
+        Log.d("MusicViewModel", " setCurrentSongIndex is called ")
 
-        _currentSongIndex.postValue(index)
+        _currentSongIndex.value = index
         Log.d("MusicViewModel", " index received : $index")
 
 //        curIndex = index
@@ -165,7 +186,6 @@ class MusicViewModel @Inject constructor(private val repository: MainRepository)
 //            Log.e("MusicViewModel", "Invalid index or songs list is null")
 //        }
     }
-
 
     fun getSongsByCategoryName(categoryName: String) {
 //        fetchAllSongs()

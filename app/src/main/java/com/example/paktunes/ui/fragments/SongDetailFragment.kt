@@ -12,7 +12,7 @@ import android.widget.SeekBar
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import androidx.media3.common.Player
@@ -31,9 +31,9 @@ import dagger.hilt.android.AndroidEntryPoint
 class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
 
     private lateinit var binding: FragmentSongDetailBinding
-    private lateinit var currSong: Song
+    private var currSong: Song = Song()
     private lateinit var songList: List<Song>
-    private val viewModel: MusicViewModel by viewModels()
+    private val viewModel: MusicViewModel by activityViewModels()
     private val TAG = "SongDetailFragment"
 
     var duration: Int = 0
@@ -50,21 +50,58 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSongDetailBinding.bind(view)
 
-        viewModel.songsLiveData.observe(viewLifecycleOwner) { songs ->
-            songList = songs
-            if (songs.isNotEmpty()) {
-                playMedia(songs[viewModel.currentSongIndex.value ?: 0])
-            }
-        }
-        viewModel.currentSongIndex.observe(viewLifecycleOwner) { index ->
-            if (index != null && index in 0 until (viewModel.songsLiveData.value?.size ?: 0)) {
-                // Play the song at the current index
-                val currentSong = viewModel.songsLiveData.value?.get(index)
-                if (currentSong != null) {
-                    playMedia(currentSong)
-                }
-            }
-        }
+
+        observeSongs()
+//        viewModel.setCurrentSongIndex()
+
+//        viewModel.songsLiveData.observe(viewLifecycleOwner) { songs ->
+//            songList = songs
+//            if (songs.isNotEmpty()) {
+//                playMedia(songs[viewModel.currentSongIndex.value ?: 0])
+//            }
+//        }
+
+//
+//        viewModel.songsLiveData.observe(viewLifecycleOwner) { list ->
+//            Log.d(TAG, "songsLiveData: $list")
+//            if (!list.isNullOrEmpty()) {
+//                viewModel.filteredSongsLiveData.observe(viewLifecycleOwner) { songs ->
+//                    if (songs.isNotEmpty()) {
+//                        Log.d(TAG, "Filtered songs are ready. Calling getCurrentSong()...")
+//
+//                        // Observe the current song
+//                        viewModel.getCurrentSong().observe(viewLifecycleOwner) { curSong ->
+//                            if (curSong != null) {
+//                                Log.d(TAG, "Current song is $curSong.")
+//                                playMedia(curSong)
+//                            } else {
+//                                Log.d(TAG, "Current song is null.")
+//                            }
+//                        }
+//                    } else {
+//                        Log.d(TAG, "Filtered songs is empty.")
+//                    }
+//                }
+//            } else {
+//                Log.d(TAG, "songs list is empty or null.")
+//            }
+//        }
+
+
+//        viewModel.currentSongIndex.observe(viewLifecycleOwner) { index ->
+//            if (index >= 0) {
+//                val currentSong = viewModel.getCurrentSong().value
+//                if (currentSong != null) {
+//                    Log.d(TAG, "Current song is $currentSong.")
+//                    playMedia(currentSong)
+//                }else{
+//                    Log.d(TAG, "Currentsong is null.")
+//
+//                }
+//            }else {
+//                Log.d(TAG, "index >= 0 . $index")
+//            }
+//        }
 
 //        viewModel.currentSong.observe(viewLifecycleOwner) { songs ->
 //            if (songs != null) {
@@ -74,8 +111,6 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
 //                Toast.makeText(requireContext(), "Current song is null", Toast.LENGTH_SHORT).show()
 //            }
 //        } 
-
-
 
 
         binding.btnNextTrack.setOnClickListener {
@@ -88,13 +123,57 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
         initializeMediaController()
         setupUIControls()
     }
+    private fun observeSongs() {
+        viewModel.currentSong.observe(viewLifecycleOwner) { currentSong ->  // Observe the MediatorLiveData
+            if (currentSong != null) {
+                Log.d(TAG, "Current song is $currentSong.")
+                playMedia(currentSong)
+            } else {
+                Log.d(TAG, "Current song is null.")
+            }
+        }
+    }
+
+//    private fun observeSongs() {
+//        viewModel.songsLiveData.observe(viewLifecycleOwner) { list ->
+//            Log.d(TAG, "songsLiveData: $list")
+//            if (!list.isNullOrEmpty()) {
+////                viewModel.getSongsByCategoryName("pop")
+//
+//                viewModel.filteredSongsLiveData.observe(viewLifecycleOwner) { songs ->
+//                    if (songs.isNotEmpty()) {
+//                        Log.d(TAG, "Filtered songs are ready. Calling getCurrentSong()...")
+//                        viewModel.currentSong.observe(viewLifecycleOwner) { currentSong ->  // Observe the MediatorLiveData
+//                            if (currentSong != null) {
+//                                Log.d(TAG, "Current song is $currentSong.")
+//                                playMedia(currentSong)
+//                            } else {
+//                                Log.d(TAG, "Current song is null.")
+//                            }
+//                        }
+//
+//                        // Example: Setting the current song index (e.g., after a user interaction)
+//                        // This will trigger the MediatorLiveData to update the current song
+//                        // viewModel.setCurrentSongIndex(3) // Example index
+//                    } else {
+//                        Log.d(TAG, "songs is null.")
+//                    }
+//                }
+//            } else {
+//                Log.d(TAG, "list is null.")
+//            }
+//        }
+//
+//    }
+
 
     private fun initializeMediaController() {
         val sessionToken = SessionToken(
             requireContext(),
             ComponentName(requireContext(), MusicService::class.java)
         )
-        mediaControllerFuture = MediaController.Builder(requireContext(), sessionToken).buildAsync()
+        mediaControllerFuture =
+            MediaController.Builder(requireContext(), sessionToken).buildAsync()
         mediaControllerFuture?.apply {
             addListener({
                 controller = get()
@@ -126,7 +205,8 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
     }
 
     private fun playMedia(song: Song) {
-
+        binding.tvSongTitle.text = song.title
+        binding.tvArtistName.text = song.artistName
         val mediaItem = MediaItem.Builder()
             .setMediaId(song.songUrl)
             //            .setMediaId("https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3")
@@ -149,7 +229,9 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
     private fun updateUIWithMediaController(controller: MediaController) {
         controller.addListener(object : Player.Listener {
             override fun onPositionDiscontinuity(
-                oldPosition: Player.PositionInfo, newPosition: Player.PositionInfo, reason: Int
+                oldPosition: Player.PositionInfo,
+                newPosition: Player.PositionInfo,
+                reason: Int
             ) {
                 val currentPosition = controller.currentPosition.toInt() / 1000
                 binding.seekbar.progress = currentPosition
@@ -218,8 +300,13 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
             }
         }
 
-        binding.seekbar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
+        binding.seekbar.setOnSeekBarChangeListener(object :
+            SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(
+                seekBar: SeekBar?,
+                progress: Int,
+                fromUser: Boolean
+            ) {
                 if (fromUser) controller.seekTo(progress.toLong() * 1000)
                 binding.time.text = getTimeString(progress)
                 binding.duration.text = getTimeString(duration)
