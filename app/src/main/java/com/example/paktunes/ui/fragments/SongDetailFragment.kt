@@ -51,7 +51,7 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
         binding = FragmentSongDetailBinding.bind(view)
 
 
-        observeSongs()
+//        observeSongs()
 //        viewModel.setCurrentSongIndex()
 
 //        viewModel.songsLiveData.observe(viewLifecycleOwner) { songs ->
@@ -122,6 +122,9 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
 
         initializeMediaController()
         setupUIControls()
+//        observeSongs()
+
+
     }
     private fun observeSongs() {
         viewModel.currentSong.observe(viewLifecycleOwner) { currentSong ->  // Observe the MediatorLiveData
@@ -178,6 +181,8 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
             addListener({
                 controller = get()
                 updateUIWithMediaController(controller)
+                observeSongs()
+
                 // Ensure media is played appropriately based on state
                 log("INITIAL STATE = ${controller.playbackState}")
                 handlePlaybackBasedOnState()
