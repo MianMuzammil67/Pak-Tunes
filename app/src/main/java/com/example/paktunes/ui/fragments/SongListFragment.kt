@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,7 +20,7 @@ class SongListFragment : Fragment(R.layout.fragment_song_list) {
 
 //    private val viewModel: CategoryViewModel by viewModels()
     private val viewModel: MusicViewModel by activityViewModels()
-    private val musicViewModel: MusicViewModel by viewModels()
+//    private val musicViewModel: MusicViewModel by viewModels()
     private lateinit var recyclerViewAdapter :RvAdapter
     private lateinit var binding: FragmentSongListBinding
     private val arg : SongListFragmentArgs by navArgs()

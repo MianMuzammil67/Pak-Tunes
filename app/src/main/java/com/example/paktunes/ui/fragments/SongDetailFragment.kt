@@ -32,7 +32,7 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
 
     private lateinit var binding: FragmentSongDetailBinding
     private var currSong: Song = Song()
-    private lateinit var songList: List<Song>
+//    private lateinit var songList: List<Song>
     private val viewModel: MusicViewModel by activityViewModels()
     private val TAG = "SongDetailFragment"
 
@@ -402,7 +402,7 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
             isVisible = true
         }
 
-        const val CURRENT_POSITION = "CURRENT_POSITION"
+//        const val CURRENT_POSITION = "CURRENT_POSITION"
     }
 
 
