@@ -36,8 +36,6 @@ class MusicViewModel @Inject constructor(private val repository: MainRepository)
     private val _currentSongIndex = MutableLiveData<Int>(1)
     val currentSongIndex: LiveData<Int> = _currentSongIndex
 
-//    private val _currentSong = MutableLiveData<Song>()
-//    val currentSongLiveData: LiveData<Song> = _currentSong
 
     private val _currentSong = MediatorLiveData<Song?>()
     val currentSong: LiveData<Song?> = _currentSong
@@ -56,71 +54,8 @@ class MusicViewModel @Inject constructor(private val repository: MainRepository)
         _currentSong.addSource(currentSongIndex) { index ->
             updateCurrentSong()
         }
-
-//        _currentSongIndex.value = -1
     }
 
-    //    purana but useful     ///////////////////////////////////////////////////////////////////////
-    /*
-//    val currentSong: LiveData<Song?> = _currentSongIndex.map { index ->
-//        _songs.value?.getOrNull(index ?: -1)
-//    }
-
-//    ----------------------------------
-//    val currentSong: LiveData<Song?> = _currentSongIndex.map { index ->
-//        Log.e("MusicViewModel", "index in currentSong is ======== $index")
-//        _filteredSongs.value?.getOrNull(index)
-//    }
-
-//    val currentSong: LiveData<Song?> = _currentSongIndex.switchMap { index ->
-//        Log.e("MusicViewModel", "index in currentSong is ======== $index")
-//        // Using a switchMap here because it listens for changes to _currentSongIndex
-//        val song = _filteredSongs.value?.getOrNull(index)
-//        MutableLiveData(song)
-//    }
-
-
-//    fun getCurrentSong(index: Int): LiveData<Song?> {
-//        _currentSongIndex.value = index
-//        val value = filteredSongsLiveData.map { songs ->
-//            songs.getOrNull(index)
-//        }
-//        Log.e("MusicViewModel", "index in currentSong is ======== ${value.value}")
-//        return value
-//    }
-
-
-    fun getCurrentSongg() {
-        _filteredSongs.observeForever { songs ->
-            _currentSongIndex.value?.let { index ->
-                Log.d("MusicViewModel", "index before : $index")
-                if (index >= 0 && index < songs.size) {
-                    // Fetch the song using the index from filtered songs list
-                    _currentSong.value = songs[index]
-                    Log.d("MusicViewModel", "getCurrentSong: $index,---$songs")
-                }
-            }
-        }
-    }
-
-//    fun getCurrentSong(): LiveData<Song?> {
-//        Log.d("MusicViewModel", "getCurrentSong is called")
-//        return _filteredSongs.map { songs ->
-//            val index = _currentSongIndex.value ?: 0
-//            Log.d("MusicViewModel", "getCurrentSong: index = $index")  // Log the current index
-//
-//            // Log the available songs to see if they're populated
-//            Log.d("MusicViewModel", "Filtered songs: $songs")
-//
-//            val currentSong = songs.getOrNull(index)
-//            Log.d(
-//                "MusicViewModel",
-//                "getCurrentSong: currentSong = $currentSong"
-//            ) // Log the current song
-//
-//            currentSong
-//        }
-//    }*/
 
     private fun updateCurrentSong() {
         val songs = _filteredSongs.value ?: emptyList()
@@ -129,22 +64,11 @@ class MusicViewModel @Inject constructor(private val repository: MainRepository)
     }
 
 
-    //    purana but useful
-//    private fun fetchALLSongs() {
-//        viewModelScope.launch {
-//            val songList = repository.getAllSongs()
-//            _songs.value=songList
-////            if (songList.isNotEmpty()) {
-////                _currentSongIndex.value = 1
-////            }
-//        }
-//    }
     private fun fetchAllSongs() = viewModelScope.launch {
         Log.d("MusicViewModel", "fetchAllSongs is called")
         // Fetch the songs from the repository
         val songList = repository.getAllSongs()
         Log.d("MusicViewModel", "fetchAllSongs : $songList")
-//        _songs.postValue(songList)
         _songs.value = songList
 
     }
@@ -165,26 +89,11 @@ class MusicViewModel @Inject constructor(private val repository: MainRepository)
     }
 
 
-//    fun getSongsByCategory(categoryId: String) {
-//        //    current category k songs k liy view model main getallsongs main query chlani hy
-//    }
-
     fun setCurrentSongIndex(index: Int) {
         Log.d("MusicViewModel", " setCurrentSongIndex is called ")
 
         _currentSongIndex.value = index
         Log.d("MusicViewModel", " index received : $index")
-
-//        curIndex = index
-//        val songs = _filteredSongs.value  // Get the current value of _songs
-//        if (songs != null && index in songs.indices) {
-//            _currentSongIndex.value
-//        _currentSongIndex.value = index
-//            Log.e("MusicViewModel", "index form RV ---=== $index")
-//        } else {
-//            // Optionally handle the case where songs is null or the index is out of bounds
-//            Log.e("MusicViewModel", "Invalid index or songs list is null")
-//        }
     }
 
     fun getSongsByCategoryName(categoryName: String) {
@@ -202,21 +111,6 @@ class MusicViewModel @Inject constructor(private val repository: MainRepository)
             _filteredSongs.postValue(filteredSongs)
         }
     }
-
-//    fun getSongsByCategoryName(categoryName: String) {
-//        val filteredSongs = _songs.value?.filter { song ->
-//            song.category.equals(categoryName, ignoreCase = true)
-//        }
-//        Log.d("MusicViewModel", "filteredSongs ===== $filteredSongs")
-//        _filteredSongs.postValue(filteredSongs ?: emptyList())
-//    }
-
-//    fun setCurrentSongIndex(index: Int) {
-//        if (index in _songs.value!!.indices) {
-//            _currentSongIndex.value = index
-//        }
-//    }
-
 
     fun playNextSong() {
         val currentIndex = _currentSongIndex.value ?: return

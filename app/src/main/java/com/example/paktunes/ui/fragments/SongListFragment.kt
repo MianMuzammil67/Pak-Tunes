@@ -18,9 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SongListFragment : Fragment(R.layout.fragment_song_list) {
 
-//    private val viewModel: CategoryViewModel by viewModels()
     private val viewModel: MusicViewModel by activityViewModels()
-//    private val musicViewModel: MusicViewModel by viewModels()
     private lateinit var recyclerViewAdapter :RvAdapter
     private lateinit var binding: FragmentSongListBinding
     private val arg : SongListFragmentArgs by navArgs()
@@ -34,7 +32,6 @@ class SongListFragment : Fragment(R.layout.fragment_song_list) {
         arg.let {
             binding.tvCategoryName.text = it.CategoryName
             Toast.makeText(requireContext(), it.CategoryName, Toast.LENGTH_SHORT).show()
-//            viewModel.getSongsByCategoryName(categoryName = it.CategoryName)
             viewModel.songsLiveData.observe(viewLifecycleOwner){ list->
                 Log.d(TAG, "songsLiveData: $list")
                 if (!list.isNullOrEmpty()) {
@@ -60,24 +57,4 @@ class SongListFragment : Fragment(R.layout.fragment_song_list) {
             layoutManager = LinearLayoutManager(context)
         }
     }
-
-
-
-        //    purana but useful     ///////////////////////////////////////////////////////////////////////
-
-//        val recyclerView: RecyclerView = binding.recyclerView
-//        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-
-//        viewModel.songsLiveData.observe(viewLifecycleOwner) { songList ->
-//            Log.e(TAG, songList.toString())
-//
-//            recyclerView.adapter = RvAdapter(songList) { selectedIndex ->
-//
-//                Toast.makeText(requireContext(), selectedIndex.toString(), Toast.LENGTH_LONG).show()
-//
-//                viewModel.setCurrentSongIndex(selectedIndex)
-//                findNavController().navigate(R.id.action_songListFragment_to_songDetailFragment)
-//            }
-//        }
-    }
-//}
+}
