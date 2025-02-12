@@ -38,7 +38,15 @@ class ArtistDetailFragment(): Fragment(R.layout.artist_detail_fragment) {
             binding.tvDescription.text = artistData.description
             Glide.with(requireContext()).load(artistData.image).placeholder(R.drawable.placeholder).into(binding.ivArtistPhoto)
             Toast.makeText(requireContext(), artistData.name, Toast.LENGTH_SHORT).show()
-           viewModel.getSongsByArtistId(artistData.name)
+
+            viewModel.songsLiveData.observe(viewLifecycleOwner){ list->
+                Log.d(TAG, "songsLiveData : $list")
+                if (!list.isNullOrEmpty()) {
+                    // Once songs are available, filter by category
+                    viewModel.getSongsByArtistId(artistData.name)
+                }
+            }
+
         }
         viewModel.filteredSongsLiveData.observe(viewLifecycleOwner){filteredSongs ->
             Log.d(TAG, "onViewCreated: filteredSongs $filteredSongs ")
