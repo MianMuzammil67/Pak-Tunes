@@ -54,14 +54,14 @@ class ArtistViewModel @Inject constructor(private val repository: MainRepository
         Log.d(TAG, "Filtering songs for artist: $artistName")
         // Perform the filter after trimming spaces and ignoring case
         val filteredSongs = allSongs.filter { song ->
-            val songArtistName = song.artistName?.trim() ?: ""
+            val songArtistName = song.artistName.trim()
             val trimmedArtistName = artistName.trim()
             // Log comparison values
             Log.d(TAG, "Comparing: $songArtistName with $trimmedArtistName")
             songArtistName.equals(trimmedArtistName, ignoreCase = true)
         }
         Log.d(TAG, "getSongsByArtistId filtered songs: $filteredSongs")
-        _filteredSongs.postValue(filteredSongs ?: emptyList())
+        _filteredSongs.postValue(filteredSongs)
     }
 
 
