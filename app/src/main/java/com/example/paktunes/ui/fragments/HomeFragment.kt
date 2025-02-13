@@ -3,7 +3,7 @@ package com.example.paktunes.ui.fragments
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.paktunes.R
@@ -16,15 +16,15 @@ import com.example.paktunes.ui.viewModel.MusicViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class HomeFragment(): Fragment(R.layout.fragment_home) {
+class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var musicCategoryAdapter : CategoryAdapter
     private lateinit var podcastCategoryAdapter : CategoryAdapter
     private lateinit var artistAdapter : ArtistAdapter
     private lateinit var popularMusicAdapter : PopularMusicAdapter
-    private val musicViewModel: MusicViewModel by viewModels()
-    private val artistViewModel: ArtistViewModel by viewModels()
+    private val musicViewModel: MusicViewModel by activityViewModels()
+    private val artistViewModel: ArtistViewModel by activityViewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentHomeBinding.bind(view)
@@ -33,6 +33,7 @@ class HomeFragment(): Fragment(R.layout.fragment_home) {
         setupPodcastCategoryRecyclerView()
         setupArtistRecyclerView()
         setupPopularSongsRecyclerView()
+
         //fetching data from viewModel
         musicViewModel.musicCategories.observe(viewLifecycleOwner) { categories ->
             musicCategoryAdapter.submitList(categories)

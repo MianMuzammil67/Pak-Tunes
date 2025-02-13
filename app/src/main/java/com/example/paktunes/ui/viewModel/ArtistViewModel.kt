@@ -7,35 +7,37 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.paktunes.data.entities.Artist
 import com.example.paktunes.data.entities.Song
-import com.example.paktunes.repository.ArtistRepository
+import com.example.paktunes.repository.MainRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ArtistViewModel @Inject constructor(private val repository: ArtistRepository) : ViewModel() {
+class ArtistViewModel @Inject constructor(private val repository: MainRepository) : ViewModel() {
     val TAG = "ArtistViewModel"
-
-
+    
     private val _artist = MutableLiveData<List<Artist>>()
     val artistLiveData: LiveData<List<Artist>> = _artist
 
-    private val _songs = MutableLiveData<List<Song>>()
-    val songsLiveData: LiveData<List<Song>> = _songs
+//    private val _songs = MutableLiveData<List<Song>>()
+//    val songsLiveData: LiveData<List<Song>> = _songs
+
+    val songsLiveData: LiveData<List<Song>> = repository.allSongs
+
 
     private val _filteredSongs = MutableLiveData<List<Song>>()
     val filteredSongsLiveData: LiveData<List<Song>> = _filteredSongs
 
     init {
-        getAllSongs()
+//        getAllSongs()
         getAllArtist()
     }
 
-    private fun getAllSongs() = viewModelScope.launch {
-        val allSongs = repository.getAllSongs() // Fetch from repository
-        Log.d(TAG, "getSongsByArtistId getallSongs: $allSongs")
-        _songs.value = allSongs // Post the full list of songs to _songs LiveData
-    }
+//    private fun getAllSongs() = viewModelScope.launch {
+//        val allSongs = repository.getAllSongs() // Fetch from repository
+//        Log.d(TAG, "getSongsByArtistId getallSongs: $allSongs")
+//        _songs.value = allSongs // Post the full list of songs to _songs LiveData
+//    }
 
     private fun getAllArtist() = viewModelScope.launch {
       val artist =  repository.getAllArtists()
@@ -44,7 +46,7 @@ class ArtistViewModel @Inject constructor(private val repository: ArtistReposito
     }
 
     fun getSongsByArtistId(artistName: String) {
-        val allSongs = _songs.value
+        val allSongs = songsLiveData.value
         if (allSongs.isNullOrEmpty()) {
             Log.d(TAG, "No songs loaded yet.")
             return

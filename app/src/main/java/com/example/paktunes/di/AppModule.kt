@@ -9,6 +9,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.paktunes.R
 import com.example.paktunes.data.remote.MusicDatabase
+import com.example.paktunes.repository.MainRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import dagger.Module
@@ -67,6 +68,12 @@ object AppModule {
     @Provides
     @Singleton
     fun provideMusicDatabase() = MusicDatabase()
+
+    @Provides
+    @Singleton
+    fun provideMainRepository(musicDatabase: MusicDatabase): MainRepository {
+        return MainRepository(musicDatabase)
+    }
 }
 
 //    private fun createNotificationChannel() {

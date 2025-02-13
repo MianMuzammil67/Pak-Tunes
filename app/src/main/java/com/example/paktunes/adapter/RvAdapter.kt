@@ -11,10 +11,7 @@ import com.example.paktunes.R
 import com.example.paktunes.data.entities.Song
 import com.example.paktunes.databinding.ItemSongBinding
 
-class RvAdapter(
-    //    private val songs: List<Song>,
-    //    private val onItemClick: (Int) -> Unit // Passes clicked item index
-) : RecyclerView.Adapter<RvAdapter.RvViewHolder>() {
+class RvAdapter() : RecyclerView.Adapter<RvAdapter.RvViewHolder>() {
     private val TAG = "RVMain"
 
     private var _onItemClick: ((Int) -> Unit)? = null
@@ -50,7 +47,7 @@ class RvAdapter(
     }
 
     override fun getItemCount(): Int {
-        Log.d(TAG, " getItemCount called list size : ${diffUtil.currentList.size} ")
+//        Log.d(TAG, " getItemCount called list size : ${diffUtil.currentList.size} ")
         return diffUtil.currentList.size
     }
 

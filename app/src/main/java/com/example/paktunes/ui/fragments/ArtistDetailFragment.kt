@@ -46,7 +46,6 @@ class ArtistDetailFragment(): Fragment(R.layout.artist_detail_fragment) {
                     viewModel.getSongsByArtistId(artistData.name)
                 }
             }
-
         }
         viewModel.filteredSongsLiveData.observe(viewLifecycleOwner){filteredSongs ->
             Log.d(TAG, "onViewCreated: filteredSongs $filteredSongs ")
@@ -61,7 +60,6 @@ class ArtistDetailFragment(): Fragment(R.layout.artist_detail_fragment) {
         rvAdapter = RvAdapter()
         binding.recyclerView.apply {
             adapter = rvAdapter
-//            layoutManager = LinearLayoutManager(context)
             layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         }
     }
