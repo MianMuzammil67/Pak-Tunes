@@ -40,6 +40,7 @@ class SongListFragment : Fragment(R.layout.fragment_song_list) {
                 }
             }
             viewModel.filteredSongsLiveData.observe(viewLifecycleOwner){ filteredList->
+                viewModel.setPlayingSongs(filteredList)
                 recyclerViewAdapter.submitList(filteredList)
             }
         }

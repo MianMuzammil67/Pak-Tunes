@@ -45,6 +45,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
             artistAdapter.submitList(artists)
         }
         musicViewModel.popularSongs.observe(viewLifecycleOwner) { popularSongs ->
+            musicViewModel.setPlayingSongs(popularSongs)
             popularMusicAdapter.submitList(popularSongs)
         }
 
@@ -60,6 +61,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         }
 
         popularMusicAdapter.onCardClickListener { position->
+            musicViewModel.setCurrentSongIndex(position)
             val action = HomeFragmentDirections.actionHomeFragmentToSongDetailFragment(position)
             findNavController().navigate(action)
         }

@@ -66,9 +66,6 @@ class ArtistViewModel @Inject constructor(private val repository: MainRepository
 
 
 
-
-
-
 //    fun getSongsByArtistId(artistName : String) {
 //        val filteredSongs = _songs.value?.filter { song ->
 ////            song.artistName.equals(artistName, ignoreCase = true)

@@ -17,8 +17,14 @@ import javax.inject.Inject
 @HiltViewModel
 class MusicViewModel @Inject constructor(private val repository: MainRepository) : ViewModel() {
 
+    private val _playingSongs = MutableLiveData<List<Song>>()
+    val playingSongsLiveData: LiveData<List<Song>> = _playingSongs
+
     private val _filteredSongs = MutableLiveData<List<Song>>()
     val filteredSongsLiveData: LiveData<List<Song>> = _filteredSongs
+
+//    private val _songsByArtistId = MutableLiveData<List<Song>>()
+//    val songsByArtistIdLiveData: LiveData<List<Song>> = _filteredSongs
 
     private val _musicCategories = MutableLiveData<List<Category>>()
     val musicCategories: LiveData<List<Category>> = _musicCategories
@@ -40,20 +46,24 @@ class MusicViewModel @Inject constructor(private val repository: MainRepository)
     init {
         getMusicCategories()
         getPodcastCategories()
-
-        _currentSong.addSource(filteredSongsLiveData) {
+        _currentSong.addSource(playingSongsLiveData) {
             updateCurrentSong()
         }
-
         _currentSong.addSource(currentSongIndex) {
             updateCurrentSong()
         }
     }
 
     private fun updateCurrentSong() {
-        val songs = _filteredSongs.value ?: emptyList()
+        Log.d("MusicViewModel", "updateCurrentSong is called")
+        val songs = _playingSongs.value ?: emptyList()
         val index = _currentSongIndex.value ?: 0
         _currentSong.value = songs.getOrNull(index)
+    }
+
+    fun setPlayingSongs(songsList: List<Song>) {
+        Log.d("MusicViewModel", "setPlayingSongs is called with $songsList songs")
+        _playingSongs.value = songsList
     }
 
     private fun getMusicCategories() = viewModelScope.launch {

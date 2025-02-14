@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -21,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class ArtistDetailFragment(): Fragment(R.layout.artist_detail_fragment) {
     private lateinit var binding: ArtistDetailFragmentBinding
     private val viewModel: ArtistViewModel by viewModels()
-    private val musicViewModel: MusicViewModel by viewModels()
+    private val musicViewModel: MusicViewModel by activityViewModels()
     private val args: ArtistDetailFragmentArgs by navArgs()
     private lateinit var rvAdapter : RvAdapter
 
@@ -49,11 +50,12 @@ class ArtistDetailFragment(): Fragment(R.layout.artist_detail_fragment) {
         }
         viewModel.filteredSongsLiveData.observe(viewLifecycleOwner){filteredSongs ->
             Log.d(TAG, "onViewCreated: filteredSongs $filteredSongs ")
+            musicViewModel.setPlayingSongs(filteredSongs)
             rvAdapter.submitList(filteredSongs)
         }
         rvAdapter.onCardClickListener { position->
-            findNavController().navigate(ArtistDetailFragmentDirections.actionArtistDetailFragmentToSongDetailFragment(position))
             musicViewModel.setCurrentSongIndex(position)
+            findNavController().navigate(ArtistDetailFragmentDirections.actionArtistDetailFragmentToSongDetailFragment(position))
         }
     }
     private fun setupRecyclerView() {
