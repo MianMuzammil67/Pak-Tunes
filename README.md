@@ -1,6 +1,16 @@
-# 🎧 Android Media App
+# 🎧 Android Media App (Under Development)
 
-An Android application built using Kotlin, following the MVVM architecture pattern. This app integrates several modern Android components and libraries, providing a clean, scalable, and maintainable codebase.
+An Android application built using Kotlin, currently under active development. This app is designed following modern Android development practices and integrates several powerful libraries and components.
+
+---
+
+## 🚧 Status
+
+> **⚠️ This project is currently under development.**
+>
+> Features, UI, and functionality are actively being worked on and may change frequently. Contributions and feedback are welcome!
+
+---.
 
 ## 🚀 Features
 
