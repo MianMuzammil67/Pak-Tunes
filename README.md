@@ -1,3 +1,5 @@
+![Status](https://img.shields.io/badge/status-under--construction-orange)
+
 # 🎧 Android Media App (Under Development)
 
 An Android application built using Kotlin, currently under active development. This app is designed following modern Android development practices and integrates several powerful libraries and components.
@@ -7,10 +9,9 @@ An Android application built using Kotlin, currently under active development. T
 ## 🚧 Status
 
 > **⚠️ This project is currently under development.**
->
-> Features, UI, and functionality are actively being worked on and may change frequently. Contributions and feedback are welcome!
 
----.
+> Features, UI, and functionality are actively being worked on and may change frequently. Contributions and feedback are welcome!
+---
 
 ## 🚀 Features
 
