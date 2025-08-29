@@ -57,3 +57,7 @@ An Android application built using **Kotlin** and **XML layouts**, currently und
 1. Clone this repository  
    ```bash
    git clone https://github.com/yourusername/android-media-app.git
+## 🤝 Contributing
+
+Feel free to open issues or submit pull requests. Your feedback and contributions are highly appreciated!
+
