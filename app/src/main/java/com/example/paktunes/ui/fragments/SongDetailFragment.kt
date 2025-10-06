@@ -1,7 +1,6 @@
 package com.example.paktunes.ui.fragments
 
 import android.content.ComponentName
-import android.net.Uri
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -23,6 +23,7 @@ import com.example.paktunes.R
 import com.example.paktunes.data.entities.Song
 import com.example.paktunes.databinding.FragmentSongDetailBinding
 import com.example.paktunes.exoplayer.service.MusicService
+import com.example.paktunes.ui.viewModel.FavoriteViewModel
 import com.example.paktunes.ui.viewModel.MusicViewModel
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.common.util.concurrent.MoreExecutors
@@ -33,9 +34,11 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
 
     private lateinit var binding: FragmentSongDetailBinding
     private var currSong: Song = Song()
+    private var isFavoriteToggleClicked = false
 
-    private val viewModel: MusicViewModel by activityViewModels()
-    private val TAG = "SongDetailFragment"
+    private val musicViewModel: MusicViewModel by activityViewModels()
+    private val favoriteViewModel: FavoriteViewModel by activityViewModels()
+    private val logTag = "SongDetailFragment"
 
     var duration: Int = 0
     private lateinit var controller: MediaController
@@ -51,25 +54,48 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentSongDetailBinding.bind(view)
 
-        binding.btnNextTrack.setOnClickListener {
-            viewModel.playNextSong()
-        }
-        binding.btnPrevTrack.setOnClickListener {
-            viewModel.playPreviousSong()
-        }
-
         initializeMediaController()
         setupUIControls()
+
+        favoriteViewModel.isFavorite.observe(viewLifecycleOwner) { isFav ->
+            var message = ""
+            if (isFav) {
+                binding.btnAddToFavorite.setImageResource(R.drawable.heart_fill)
+                message = "Added to favorites"
+            } else {
+                binding.btnAddToFavorite.setImageResource(R.drawable.heart_empty)
+                message = "Removed from favorites"
+
+            }
+            if (isFavoriteToggleClicked) {
+                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.btnAddToFavorite.setOnClickListener {
+            isFavoriteToggleClicked = true
+            favoriteViewModel.toggleFavorite(currSong)
+        }
+
+        binding.btnNextTrack.setOnClickListener {
+            musicViewModel.playNextSong()
+        }
+        binding.btnPrevTrack.setOnClickListener {
+            musicViewModel.playPreviousSong()
+        }
+
 
     }
 
     private fun observeSongs() {
-        viewModel.currentSong.observe(viewLifecycleOwner) { currentSong ->  // Observe the MediatorLiveData
+        musicViewModel.currentSong.observe(viewLifecycleOwner) { currentSong ->
             if (currentSong != null) {
-                Log.d(TAG, "Current song is $currentSong.")
+                Log.d(logTag, "Current song is $currentSong.")
+                currSong = currentSong
+                favoriteViewModel.isFavorite(currSong)
                 playMedia(currentSong)
             } else {
-                Log.d(TAG, "Current song is null.")
+                Log.d(logTag, "Current song is null.")
             }
         }
     }
@@ -122,7 +148,8 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
             .setMediaMetadata(
                 MediaMetadata.Builder()
                     .setFolderType(MediaMetadata.FOLDER_TYPE_ALBUMS)
-                    .setArtworkUri(Uri.parse(song.imageUrl))
+//                    .setArtworkUri(Uri.parse(song.imageUrl))
+                    .setArtworkUri(song.imageUrl.toUri())
 //                    .setArtworkUri(Uri.parse("https://i.pinimg.com/736x/4b/02/1f/4b021f002b90ab163ef41aaaaa17c7a4.jpg"))
                     .setAlbumTitle(song.title)
                     .setDisplayTitle(song.title)
@@ -191,9 +218,9 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
         val handler = Handler(Looper.getMainLooper())
         handler.post(object : Runnable {
             override fun run() {
-                val currentposition = controller.currentPosition.toInt() / 1000
-                binding.seekbar.progress = currentposition
-                binding.time.text = getTimeString(currentposition)
+                val currentPosition = controller.currentPosition.toInt() / 1000
+                binding.seekbar.progress = currentPosition
+                binding.time.text = getTimeString(currentPosition)
                 binding.duration.text = getTimeString(duration)
                 handler.postDelayed(this, 1000)
             }
@@ -298,7 +325,7 @@ class SongDetailFragment : Fragment(R.layout.fragment_song_detail) {
     }
 
     private fun log(message: String) {
-        Log.e("=====[DebzMediaPlayer]=====", message)
+        Log.e("SongDetailFragment", message)
     }
 
     private fun setSongUI(song: Song) {

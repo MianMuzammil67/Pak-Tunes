@@ -4,45 +4,53 @@ import android.util.Log
 import com.example.paktunes.data.entities.Artist
 import com.example.paktunes.data.entities.Category
 import com.example.paktunes.data.entities.Song
+import com.example.paktunes.utill.Constants.FAVORITE
 import com.example.paktunes.utill.Constants.SONG_COLLECTION
+import com.example.paktunes.utill.Constants.USER
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 
-class MusicDatabase{
+class MusicDatabase {
 
-//    @Inject
-//    lateinit var firestore: FirebaseFirestore
-private val firestore = FirebaseFirestore.getInstance()
+    private val firestore = FirebaseFirestore.getInstance()
+    private val firebaseAuth = FirebaseAuth.getInstance()
+    private val logTag = "MusicDatabase"
 
-//        private val songCollection = firestore.collection(SONG_COLLECTION)
+    fun getCurrentUserId(): String {
+        return firebaseAuth.currentUser?.uid.toString()
+    }
 
     suspend fun getAllSongs(): List<Song> {
         val songCollection = firestore.collection(SONG_COLLECTION)
         return try {
             songCollection.get().await().toObjects(Song::class.java)
         } catch (e: Exception) {
-            Log.e("MusicDatabase", "Error getting songs", e)
+            Log.e(logTag, "Error getting songs", e)
             emptyList()
         }
     }
+
     suspend fun getAllMusicCategories(): List<Category> {
         val categoriesCollection = firestore.collection("musicCategories")
         return try {
             categoriesCollection.get().await().toObjects(Category::class.java)
         } catch (e: Exception) {
-            Log.e("MusicDatabase", "Error getting MusicCategories", e)
+            Log.e(logTag, "Error getting MusicCategories", e)
             emptyList()
         }
     }
+
     suspend fun getAllArtist(): List<Artist> {
         val artistCollection = firestore.collection("artists")
         return try {
             artistCollection.get().await().toObjects(Artist::class.java)
         } catch (e: Exception) {
-            Log.e("MusicDatabase", "Error getting Artists", e)
+            Log.e(logTag, "Error getting Artists", e)
             emptyList()
         }
     }
+
     suspend fun getAllPodcastCategories(): List<Category> {
         val podcastCollection = firestore.collection("podcastCategories")
         return try {
@@ -51,6 +59,65 @@ private val firestore = FirebaseFirestore.getInstance()
             Log.e("MusicDatabase", "Error getting PodcastCategories", e)
             emptyList()
         }
+    }
+
+    suspend fun addToFavorite(song: Song) {
+        try {
+            firestore.collection(USER)
+                .document(getCurrentUserId())
+                .collection(FAVORITE)
+                .document(song.mediaId)
+                .set(song).await()
+        } catch (e: Exception) {
+            Log.d(logTag, e.message.toString())
+        }
+
+    }
+
+    suspend fun removeFromFavorite(song: Song) {
+        try {
+            firestore.collection(USER)
+                .document(getCurrentUserId())
+                .collection(FAVORITE)
+                .document(song.mediaId)
+                .delete().await()
+        } catch (e: Exception) {
+            Log.d(logTag, e.message.toString())
+        }
+
+    }
+
+//    suspend fun isSongFavorite(song: Song): Boolean {
+//        val snapshot = firestore.collection(USER)
+//            .document(getCurrentUserId())
+//            .collection(FAVORITE)
+//            .document(song.mediaId)
+//            .get().await()
+//        return snapshot.exists()
+//    }
+suspend fun isSongFavorite(song: Song): Boolean {
+    return try {
+        val snapshot = firestore.collection(USER)
+            .document(getCurrentUserId())
+            .collection(FAVORITE)
+            .document(song.mediaId)
+            .get()
+            .await()
+
+        snapshot.exists()
+    } catch (e: Exception) {
+        println("Error checking if song is favorite: $e")
+
+        false
+    }
+}
+
+    suspend fun getFavoritesSongs(): List<Song> {
+        val snapshot = firestore.collection(USER)
+            .document(getCurrentUserId())
+            .collection(FAVORITE)
+            .get().await()
+        return snapshot.documents.mapNotNull { it.toObject(Song::class.java) }
     }
 }
 

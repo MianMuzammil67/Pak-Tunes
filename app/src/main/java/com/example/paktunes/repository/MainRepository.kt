@@ -19,14 +19,11 @@ class MainRepository @Inject constructor(private val musicDatabase: MusicDatabas
     init {
         loadSongs()
     }
-//    suspend fun getAllSongs() = musicDatabase.getAllSongs()
 
     private fun loadSongs() {
         Log.d("SongRepository", "loadSongs is called")
-
-        // Check if data is already loaded (optional optimization)
         if (_allSongs.value != null) return
-        applicationScope.launch { // Use applicationScope
+        applicationScope.launch {
             try {
                 val songs = musicDatabase.getAllSongs()
                 _allSongs.postValue(songs)
@@ -37,7 +34,10 @@ class MainRepository @Inject constructor(private val musicDatabase: MusicDatabas
         }
     }
 
-
+    suspend fun addToFavorite(song: Song) =musicDatabase.addToFavorite(song)
+    suspend fun removeFromFavorite(song: Song) =musicDatabase.removeFromFavorite(song)
+    suspend fun getFavorites() = musicDatabase.getFavoritesSongs()
+    suspend fun isFavorite(song: Song) = musicDatabase.isSongFavorite(song)
 
     suspend fun getAllMusicCategories() = musicDatabase.getAllMusicCategories()
     suspend fun getAllPodCastCategories() = musicDatabase.getAllPodcastCategories()

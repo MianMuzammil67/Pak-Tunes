@@ -10,6 +10,7 @@ import android.widget.ProgressBar
 object Constants {
     const val SONG_COLLECTION = "songs"
     const val USER = "users"
+    const val FAVORITE = "favorite"
 
 }
 
@@ -47,4 +48,3 @@ fun Activity.hideProgressBar(progressBar: ProgressBar) {
 
 
 //    https://www.apniisp.com/songs/pakistani-pop-albums/ali-zafar-masty/390/1.html
-}
