@@ -9,7 +9,9 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.paktunes.R
 import com.example.paktunes.data.remote.MusicDatabase
+import com.example.paktunes.repository.AuthRepository
 import com.example.paktunes.repository.MainRepository
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import dagger.Module
@@ -64,6 +66,11 @@ object AppModule {
     fun provideFirestore(): FirebaseFirestore {
         return FirebaseFirestore.getInstance()
     }
+    @Provides
+    @Singleton
+    fun provideFirebaseAuth(): FirebaseAuth {
+        return FirebaseAuth.getInstance()
+    }
 
     @Provides
     @Singleton
@@ -74,6 +81,13 @@ object AppModule {
     fun provideMainRepository(musicDatabase: MusicDatabase): MainRepository {
         return MainRepository(musicDatabase)
     }
+
+    @Provides
+    @Singleton
+    fun provideAuthRepository(firebaseAuth: FirebaseAuth, firestore: FirebaseFirestore): AuthRepository {
+        return AuthRepository(firebaseAuth,firestore)
+    }
+
 }
 
 //    private fun createNotificationChannel() {
