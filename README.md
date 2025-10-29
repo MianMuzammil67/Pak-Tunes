@@ -41,14 +41,18 @@ An Android application built using **Kotlin** and **XML layouts**, currently und
 
 ## 📸 Screenshots
 
-<div style="display:flex; flex-wrap: wrap; gap: 10px;">
-  <img src="https://github.com/user-attachments/assets/967b26cc-d298-4d7f-b3b1-2bfe2ba84aac" alt="Screenshot 1" width="200" height="400" />
-  <img src="https://github.com/user-attachments/assets/30ac066e-1b1c-4884-8f85-bfee1b9b2df6" alt="Screenshot 2" width="200" height="400" />
-  <img src="https://github.com/user-attachments/assets/24101d2b-9309-4b5c-a519-5b221be671c7" alt="Screenshot 3" width="200" height="400" />
-  <img src="https://github.com/user-attachments/assets/91b21325-6541-43d3-b2c6-7cac1a7437a8" alt="Screenshot 4" width="200" height="400" />
-  <img src="https://github.com/user-attachments/assets/84eb6431-571f-4e11-812d-6af69119e560" alt="Screenshot 5" width="200" height="400" />
-  <img src="https://github.com/user-attachments/assets/fd980864-a1ea-4812-aa6c-666797771f1e" alt="Screenshot 6" width="200" height="400" />
-</div>
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/967b26cc-d298-4d7f-b3b1-2bfe2ba84aac" alt="Screenshot 1" width="200" height="400" /></td>
+    <td><img src="https://github.com/user-attachments/assets/30ac066e-1b1c-4884-8f85-bfee1b9b2df6" alt="Screenshot 2" width="200" height="400" /></td>
+    <td><img src="https://github.com/user-attachments/assets/24101d2b-9309-4b5c-a519-5b221be671c7" alt="Screenshot 3" width="200" height="400" /></td>
+  </tr>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/91b21325-6541-43d3-b2c6-7cac1a7437a8" alt="Screenshot 4" width="200" height="400" /></td>
+    <td><img src="https://github.com/user-attachments/assets/84eb6431-571f-4e11-812d-6af69119e560" alt="Screenshot 5" width="200" height="400" /></td>
+    <td><img src="https://github.com/user-attachments/assets/fd980864-a1ea-4812-aa6c-666797771f1e" alt="Screenshot 6" width="200" height="400" /></td>
+  </tr>
+</table>
 
 ---
 
@@ -57,6 +61,9 @@ An Android application built using **Kotlin** and **XML layouts**, currently und
 1. Clone this repository  
    ```bash
    git clone https://github.com/yourusername/android-media-app.git
+
+---
+
 ## 🤝 Contributing
 
 Feel free to open issues or submit pull requests. Your feedback and contributions are highly appreciated!
